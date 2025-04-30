@@ -11,5 +11,11 @@ config_version=5
 [application]
 
 config/name="My RPG Demo"
+run/main_scene="uid://ctj4w3am2a801"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=480

@@ -10,7 +10,7 @@
 extends Camera2D
 
 @export var TARGET_VIEW_SIZE: Vector2 = Vector2(240, 160)
-@export var MOVE_DAMPING: float = -6.0
+@export var DOLLY_DAMPING: float = -6.0
 @export var base_zoom: float = 1.0
 @export var target_position: Vector2 = Vector2(0, 0)
 
@@ -33,4 +33,4 @@ func _ready() -> void:
 	
 func _process(delta: float) -> void:
 	# update the camera position
-	position = position.lerp(target_position, 1 - exp(MOVE_DAMPING * delta))
+	position = position.lerp(target_position, 1 - exp(DOLLY_DAMPING * delta))
