@@ -55,7 +55,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_tnfmr"]
-resource_name = "run_left"
+resource_name = "move_left"
 loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
@@ -72,7 +72,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_p7obe"]
-resource_name = "run_right"
+resource_name = "move_right"
 loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
@@ -93,8 +93,8 @@ _data = {
 &"RESET": SubResource("Animation_qd8qs"),
 &"idle_left": SubResource("Animation_xlvtu"),
 &"idle_right": SubResource("Animation_3hik6"),
-&"run_left": SubResource("Animation_tnfmr"),
-&"run_right": SubResource("Animation_p7obe")
+&"move_left": SubResource("Animation_tnfmr"),
+&"move_right": SubResource("Animation_p7obe")
 }
 
 [node name="Player" instance=ExtResource("3_qd8qs")]

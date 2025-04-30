@@ -41,7 +41,7 @@ const DASH_ANIMATION := {
 # Current state of the character from State enum
 @export var current_state := EntityState.IDLE
 # Current facing direction of the entity
-@export var facing_direction := Vector2.DOWN
+@export var facing_direction := Vector2.LEFT
 
 # Reference to the AnimationPlayer node for character animations
 @onready var animation_player := $Sprite2D/AnimationPlayer
@@ -51,27 +51,26 @@ func _physics_process(delta: float) -> void:
 	var input_direction := Vector2 (
 		Input.get_axis("ui_left", "ui_right"),
 		Input.get_axis("ui_up", "ui_down")
-	).normalized()
+	)
 	
 	# interpret
 	if input_direction != Vector2.ZERO:
 		current_state = EntityState.MOVE
-		facing_direction = input_direction
+		if input_direction.x:
+			facing_direction = Vector2(input_direction.x, 0)
 	else:
 		current_state = EntityState.IDLE
 
 	# state
-	match current_state:
-		EntityState.IDLE:
-			animation_player.play(IDLE_ANIMATION[enter_track(facing_direction)])
-			apply_movement(Vector2.ZERO, delta)
-			
-		EntityState.MOVE:
-			animation_player.play(MOVE_ANIMATION[enter_track(facing_direction)])
-			apply_movement(input_direction, delta)
+	if current_state == EntityState.IDLE:
+		animation_player.play(IDLE_ANIMATION[facing_direction])
+		apply_movement(Vector2.ZERO, delta)
+	
+	elif current_state == EntityState.MOVE:
+		animation_player.play(MOVE_ANIMATION[facing_direction])
+		apply_movement(input_direction.normalized(), delta)
 
 # Integrate the direction vector into the direction trajectory
-# Note: If you want to flatten to horizontal direction, pass Vector2(target_direction.x, 0)
 func enter_track(target_direction: Vector2) -> Vector2:
 	if abs(target_direction.x) * 1.2 > abs(target_direction.y):
 		return Vector2(sign(target_direction.x), 0)
