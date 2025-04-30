@@ -12,6 +12,7 @@ extends CharacterBody2D
 # Entity states
 enum EntityState { IDLE, MOVE, DASH }
 
+# Animation naming conventions
 const IDLE_ANIMATION := {
 	Vector2.LEFT: "idle_left",
 	Vector2.RIGHT: "idle_right",
