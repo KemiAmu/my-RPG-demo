@@ -9,8 +9,8 @@
 
 extends CharacterBody2D
 
-@export var MOVE_SPEED: float = 100.0
-@export var MOVE_DAMPING: float = -20.0
+@export var move_speed: float = 100.0
+@export var move_damping: float = -20.0
 
 func _ready() -> void:
 	print("CharacterBody2D ready")
@@ -31,11 +31,11 @@ func _physics_process(delta: float) -> void:
 	
 	# todo something...
 	
-	move_and_slide()
 
 # Handle character movement
 func apply_movement(direction: Vector2, delta) -> void:
 	self.velocity = self.velocity.lerp (
-		direction.normalized() * MOVE_SPEED,
-		1 - exp(MOVE_DAMPING * delta)
+		direction.normalized() * move_speed,
+		1 - exp(move_damping * delta)
 	)
+	move_and_slide()
