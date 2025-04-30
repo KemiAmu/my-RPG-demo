@@ -9,7 +9,7 @@
 
 extends CharacterBody2D
 
-# Entity states, at least IDLE state must be implemented
+# Entity states
 enum EntityState { IDLE, MOVE, DASH }
 
 const IDLE_ANIMATION := {
