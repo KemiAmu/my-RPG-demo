@@ -26,6 +26,13 @@ const MOVE_ANIMATION := {
 	Vector2.UP: "move_up"
 }
 
+const DASH_ANIMATION := {
+	Vector2.LEFT: "dash_left",
+	Vector2.RIGHT: "dash_right",
+	Vector2.DOWN: "dash_down",
+	Vector2.UP: "dash_up"
+}
+
 # Movement speed in pixels per second
 @export var move_speed := 100.0
 # Damping factor for movement smoothing (negative value)
