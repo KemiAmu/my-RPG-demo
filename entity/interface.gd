@@ -64,8 +64,8 @@ func _physics_process(delta: float) -> void:
 
 # Integrate the direction vector into the direction trajectory
 func enter_track(target_direction: Vector2) -> Vector2:
-	if target_direction.length_squared() != 1:
-		printerr("Invalid direction, vector length is not 1")
+	# if target_direction.length_squared() != 1:
+	# 	printerr("Invalid direction, vector length is not 1")
 	if abs(target_direction.x) * 1.2 > abs(target_direction.y):
 		return Vector2(sign(target_direction.x), 0)
 	return Vector2(0, sign(target_direction.y))
