@@ -9,7 +9,7 @@
 
 extends CharacterBody2D
 
-# Entity states
+# Entity states conventions
 enum EntityState { IDLE, MOVE, DASH }
 
 # Animation naming conventions
