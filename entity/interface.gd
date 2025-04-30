@@ -12,14 +12,14 @@ extends CharacterBody2D
 # Entity states, at least IDLE state must be implemented
 enum EntityState { IDLE, MOVE, DASH }
 
-@export var idle_animation := {
+const IDLE_ANIMATION := {
 	Vector2.LEFT: "idle_left",
 	Vector2.RIGHT: "idle_right",
 	Vector2.DOWN: "idle_down",
 	Vector2.UP: "idle_up"
 }
 
-@export var move_animation := {
+const MOVE_ANIMATION := {
 	Vector2.LEFT: "move_left",
 	Vector2.RIGHT: "move_right",
 	Vector2.DOWN: "move_down",
@@ -55,11 +55,11 @@ func _physics_process(delta: float) -> void:
 	# state
 	match current_state:
 		EntityState.IDLE:
-			animation_player.play(idle_animation[enter_track(facing_direction)])
+			animation_player.play(IDLE_ANIMATION[enter_track(facing_direction)])
 			apply_movement(Vector2.ZERO, delta)
 			
 		EntityState.MOVE:
-			animation_player.play(move_animation[enter_track(facing_direction)])
+			animation_player.play(MOVE_ANIMATION[enter_track(facing_direction)])
 			apply_movement(input_direction, delta)
 
 # Integrate the direction vector into the direction trajectory
