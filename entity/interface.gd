@@ -57,7 +57,7 @@ func _physics_process(delta: float) -> void:
 	if input_direction != Vector2.ZERO:
 		current_state = EntityState.MOVE
 		if input_direction.x:
-			facing_direction = Vector2(input_direction.x, 0)
+			facing_direction = Vector2(sign(input_direction.x), 0)
 	else:
 		current_state = EntityState.IDLE
 
@@ -71,6 +71,7 @@ func _physics_process(delta: float) -> void:
 		apply_movement(input_direction.normalized(), delta)
 
 # Integrate the direction vector into the direction trajectory
+# Note: This function may return Vector2.ZERO as-is.
 func enter_track(target_direction: Vector2) -> Vector2:
 	if abs(target_direction.x) * 1.2 > abs(target_direction.y):
 		return Vector2(sign(target_direction.x), 0)
