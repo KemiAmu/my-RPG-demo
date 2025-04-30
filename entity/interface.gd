@@ -71,9 +71,8 @@ func _physics_process(delta: float) -> void:
 			apply_movement(input_direction, delta)
 
 # Integrate the direction vector into the direction trajectory
+# Note: If you want to flatten to horizontal direction, pass Vector2(target_direction, 0)
 func enter_track(target_direction: Vector2) -> Vector2:
-	# if target_direction.length_squared() != 1:
-	# 	printerr("Invalid direction, vector length is not 1")
 	if abs(target_direction.x) * 1.2 > abs(target_direction.y):
 		return Vector2(sign(target_direction.x), 0)
 	return Vector2(0, sign(target_direction.y))
