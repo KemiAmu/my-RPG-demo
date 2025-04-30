@@ -32,5 +32,5 @@ func _ready() -> void:
 	_on_window_resized(window)
 	
 func _process(delta: float) -> void:
-		# update the camera position
-		position = position.lerp(target_position, 1 - exp(MOVE_DAMPING * delta))
+	# update the camera position
+	position = position.lerp(target_position, 1 - exp(MOVE_DAMPING * delta))
