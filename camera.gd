@@ -1,4 +1,4 @@
-# My RPG Demo
+# camera.gd
 # Copyright 2025 Kemi-Amu
 #
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -14,6 +14,16 @@ extends Camera2D
 @export var base_zoom: float = 1.0
 @export var target_position: Vector2 = Vector2(0, 0)
 
+func _ready() -> void:
+	# change the camera zoom if window resized
+	var window: Window = get_window()
+	window.size_changed.connect(_on_window_resized.bind(window))
+	_on_window_resized(window)
+	
+func _process(delta: float) -> void:
+	# update the camera position
+	position = position.lerp(target_position, 1 - exp(DOLLY_DAMPING * delta))
+
 # resize the camera when window resized
 func _on_window_resized(window: Window) -> void:
 	var view_scale: Vector2 = Vector2(window.size) / TARGET_VIEW_SIZE
@@ -24,13 +34,3 @@ func _on_window_resized(window: Window) -> void:
 # set the target position of the camera
 func set_target_position(new_position: Vector2) -> void:
 	target_position = new_position
-
-func _ready() -> void:
-	# change the camera zoom if window resized
-	var window: Window = get_window()
-	window.size_changed.connect(_on_window_resized.bind(window))
-	_on_window_resized(window)
-	
-func _process(delta: float) -> void:
-	# update the camera position
-	position = position.lerp(target_position, 1 - exp(DOLLY_DAMPING * delta))

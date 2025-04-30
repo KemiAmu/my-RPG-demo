@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhujotcerbtia"]
+
+[ext_resource type="PackedScene" uid="uid://byxyw37avswvh" path="res://scene/interface.tscn" id="1_s4bav"]
+[ext_resource type="PackedScene" uid="uid://drorsm32hevne" path="res://entity/player.tscn" id="2_3j3ut"]
+
+[node name="Lawn" instance=ExtResource("1_s4bav")]
+
+[node name="Player" parent="YSort" index="0" instance=ExtResource("2_3j3ut")]

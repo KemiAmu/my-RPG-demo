@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://ctj4w3am2a801"]
+[gd_scene load_steps=3 format=3 uid="uid://ctj4w3am2a801"]
 
 [ext_resource type="Script" uid="uid://8qqyvxy6ppfv" path="res://camera.gd" id="1_80nbo"]
+[ext_resource type="PackedScene" uid="uid://bhujotcerbtia" path="res://scene/lawn.tscn" id="1_e2o6t"]
 
-[node name="Node" type="Node"]
+[node name="Game" type="Node"]
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="Lawn" parent="World" instance=ExtResource("1_e2o6t")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
