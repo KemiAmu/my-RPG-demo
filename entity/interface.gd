@@ -46,30 +46,6 @@ const DASH_ANIMATION := {
 # Reference to the AnimationPlayer node for character animations
 @onready var animation_player := $Sprite2D/AnimationPlayer
 
-func _physics_process(delta: float) -> void:
-	# get input direction
-	var input_direction := Vector2 (
-		Input.get_axis("ui_left", "ui_right"),
-		Input.get_axis("ui_up", "ui_down")
-	)
-	
-	# interpret
-	if input_direction != Vector2.ZERO:
-		current_state = EntityState.MOVE
-		if input_direction.x:
-			facing_direction = Vector2(sign(input_direction.x), 0)
-	else:
-		current_state = EntityState.IDLE
-
-	# state
-	if current_state == EntityState.IDLE:
-		animation_player.play(IDLE_ANIMATION[facing_direction])
-		apply_movement(Vector2.ZERO, delta)
-	
-	elif current_state == EntityState.MOVE:
-		animation_player.play(MOVE_ANIMATION[facing_direction])
-		apply_movement(input_direction.normalized(), delta)
-
 # Integrate the direction vector into the direction trajectory
 # Note: This function may return Vector2.ZERO as-is.
 func enter_track(target_direction: Vector2) -> Vector2:
@@ -78,9 +54,9 @@ func enter_track(target_direction: Vector2) -> Vector2:
 	return Vector2(0, sign(target_direction.y))
 
 # Handle character movement
-func apply_movement(target_direction: Vector2, delta) -> void:
+func apply_movement(target_direction: Vector2, damping: float, delta) -> void:
 	self.velocity = self.velocity.lerp (
 		target_direction * move_speed,
-		1 - exp(move_damping * delta)
+		1 - exp(damping * delta)
 	)
 	move_and_slide()

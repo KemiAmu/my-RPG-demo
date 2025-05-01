@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://drorsm32hevne"]
+[gd_scene load_steps=10 format=3 uid="uid://drorsm32hevne"]
 
+[ext_resource type="Script" uid="uid://cag2xpt3f3bl4" path="res://entity/player.gd" id="2_qd8qs"]
 [ext_resource type="Texture2D" uid="uid://rd0gojxb8k4a" path="res://entity/player.png" id="2_xlvtu"]
 [ext_resource type="PackedScene" uid="uid://cr6j7b522uc7o" path="res://entity/interface.tscn" id="3_qd8qs"]
 
@@ -98,6 +99,7 @@ _data = {
 }
 
 [node name="Player" instance=ExtResource("3_qd8qs")]
+script = ExtResource("2_qd8qs")
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(0, -11)
