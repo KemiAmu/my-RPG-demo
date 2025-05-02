@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bw8woe6qwjaag" path="res://region/grass_background.png" id="1_bf661"]
 [ext_resource type="PackedScene" uid="uid://drorsm32hevne" path="res://entity/player.tscn" id="2_bf661"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_feb5d"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mlu2n"]
 texture = ExtResource("1_bf661")
 0:0/0 = 0
 1:0/0 = 0
@@ -23,7 +23,7 @@ texture = ExtResource("1_bf661")
 3:3/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_fc0e3"]
-sources/0 = SubResource("TileSetAtlasSource_feb5d")
+sources/0 = SubResource("TileSetAtlasSource_mlu2n")
 
 [node name="SceneInterface" type="Node2D"]
 

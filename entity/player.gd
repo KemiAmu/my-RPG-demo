@@ -9,6 +9,8 @@
 
 extends "res://entity/interface.gd"
 
+@onready var aegis := $Aegis
+
 # 预加载战斗场景
 #var battle_scene = preload("res://scene/battle.tscn")
 
@@ -42,7 +44,13 @@ func _physics_process(delta: float) -> void:
 		animation_player.play(MOVE_ANIMATION[facing_direction])
 		apply_movement(input_direction.normalized(), move_damping, delta)
 
-# 在player.gd中添加战斗触发逻辑
-func _on_aegis_area_entered(area: Area2D) -> void:
-	if area.is_in_group("enemy"):
-		pass
+# 战斗触发逻辑
+func _on_aegis_body_entered(body: Node2D) -> void:
+	if body.is_in_group("enemy"):
+		var enemy := body as CharacterBody2D
+		# 理想中 enemy 组只有 enemy
+		if not enemy:
+			printerr("Enemy is null")
+			return
+		Game.start_battle(enemy)
+		enemy.queue_free()

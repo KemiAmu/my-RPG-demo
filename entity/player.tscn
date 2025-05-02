@@ -101,7 +101,7 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_qd8qs"]
 
 [node name="Player" instance=ExtResource("3_qd8qs")]
-collision_layer = 20
+collision_layer = 16
 collision_mask = 6
 script = ExtResource("2_qd8qs")
 
@@ -126,4 +126,4 @@ modulate = Color(1, 1, 1, 0.247059)
 position = Vector2(0, -3)
 shape = SubResource("CircleShape2D_qd8qs")
 
-[connection signal="area_entered" from="Aegis" to="." method="_on_aegis_area_entered"]
+[connection signal="body_entered" from="Aegis" to="." method="_on_aegis_body_entered"]
