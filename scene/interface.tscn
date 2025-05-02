@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=4 uid="uid://byxyw37avswvh"]
+[gd_scene load_steps=5 format=4 uid="uid://byxyw37avswvh"]
 
 [ext_resource type="Texture2D" uid="uid://bw8woe6qwjaag" path="res://region/grass_background.png" id="1_bf661"]
+[ext_resource type="PackedScene" uid="uid://drorsm32hevne" path="res://entity/player.tscn" id="2_bf661"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_feb5d"]
 texture = ExtResource("1_bf661")
@@ -33,3 +34,5 @@ tile_set = SubResource("TileSet_fc0e3")
 
 [node name="YSort" type="Node2D" parent="."]
 y_sort_enabled = true
+
+[node name="Player" parent="YSort" instance=ExtResource("2_bf661")]

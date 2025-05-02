@@ -10,7 +10,7 @@
 extends CharacterBody2D
 
 # Entity states
-enum EntityState { IDLE, MOVE, DASH }
+enum EntityState { IDLE, MOVE, DASH, JUMP }
 
 # Animation naming conventions
 const IDLE_ANIMATION := {
@@ -32,6 +32,13 @@ const DASH_ANIMATION := {
 	Vector2.RIGHT: "dash_right",
 	Vector2.DOWN: "dash_down",
 	Vector2.UP: "dash_up"
+}
+
+const JUMP_ANIMATION := {
+	Vector2.LEFT: "jump_left",
+	Vector2.RIGHT: "jump_right",
+	Vector2.DOWN: "jump_down",
+	Vector2.UP: "jump_up"
 }
 
 # Movement speed in pixels per second

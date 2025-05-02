@@ -5,10 +5,18 @@
 
 [node name="Game" type="Node"]
 
-[node name="World" type="Node2D" parent="."]
+[node name="WorldContainer" type="Node2D" parent="."]
 
-[node name="Lawn" parent="World" instance=ExtResource("1_e2o6t")]
+[node name="Lawn" parent="WorldContainer" instance=ExtResource("1_e2o6t")]
+
+[node name="BattleContainer" type="Node2D" parent="."]
+
+[node name="GlobalUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
 script = ExtResource("1_80nbo")
+
+[editable path="WorldContainer/Lawn"]

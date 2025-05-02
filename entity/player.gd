@@ -9,13 +9,19 @@
 
 extends "res://entity/interface.gd"
 
+# 预加载战斗场景
+#var battle_scene = preload("res://scene/battle.tscn")
+
+func _process(delta: float) -> void:
+	Camera.set_target_position(position + facing_direction * 10)
+
 func _physics_process(delta: float) -> void:
 	# get input
 	var input_direction := Vector2 (
 		Input.get_axis("ui_left", "ui_right"),
 		Input.get_axis("ui_up", "ui_down")
 	)
-	
+
 	# interpret input
 	if input_direction != Vector2.ZERO:
 		current_state = EntityState.MOVE
@@ -28,7 +34,12 @@ func _physics_process(delta: float) -> void:
 	if current_state == EntityState.IDLE:
 		animation_player.play(IDLE_ANIMATION[facing_direction])
 		apply_movement(Vector2.ZERO, move_damping, delta)
-	
+
 	elif current_state == EntityState.MOVE:
 		animation_player.play(MOVE_ANIMATION[facing_direction])
 		apply_movement(input_direction.normalized(), move_damping, delta)
+
+# 在player.gd中添加战斗触发逻辑
+func _on_aegis_area_entered(area: Area2D) -> void:
+	if area.is_in_group("enemy"):
+		pass

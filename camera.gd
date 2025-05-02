@@ -10,7 +10,7 @@
 extends Camera2D
 
 @export var TARGET_VIEW_SIZE: Vector2 = Vector2(240, 160)
-@export var DOLLY_DAMPING: float = -6.0
+@export var DOLLY_DAMPING: float = -7.0
 @export var base_zoom: float = 1.0
 @export var target_position: Vector2 = Vector2(0, 0)
 

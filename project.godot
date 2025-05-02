@@ -18,11 +18,16 @@ config/icon="res://icon.svg"
 [autoload]
 
 Camera="*res://camera.gd"
+Global="*res://global.gd"
 
 [display]
 
 window/size/viewport_width=720
 window/size/viewport_height=480
+
+[global_group]
+
+enemy=""
 
 [input]
 
@@ -61,6 +66,9 @@ ui_down={
 
 [layer_names]
 
-2d_physics/layer_1="undefined"
-2d_physics/layer_2="world"
-2d_physics/layer_3="player"
+2d_physics/layer_1="Undefined"
+2d_physics/layer_2="World Collision"
+2d_physics/layer_3="Entity Collision"
+2d_physics/layer_5="Player"
+2d_physics/layer_6="Passive Mobs"
+2d_physics/layer_7="Hostile Mobs"
