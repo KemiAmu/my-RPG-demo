@@ -15,8 +15,9 @@ extends "res://entity/interface.gd"
 #var battle_scene = preload("res://scene/battle.tscn")
 
 func _ready():
-	Game.set_player_node(self)
+	Global.set_player_node(self)
 
+@warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
 	Camera.set_target_position(position + facing_direction * 10)
 
@@ -48,9 +49,11 @@ func _physics_process(delta: float) -> void:
 func _on_aegis_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
 		var enemy := body as CharacterBody2D
-		# 理想中 enemy 组只有 enemy
 		if not enemy:
 			printerr("Enemy is null")
 			return
-		Game.start_battle(enemy)
-		enemy.queue_free()
+		# [TODO] [HACK]
+		enemy.hide()
+		enemy.set_process_mode(Node.PROCESS_MODE_DISABLED)
+		Global.start_battle(enemy)
+		# enemy.queue_free()
