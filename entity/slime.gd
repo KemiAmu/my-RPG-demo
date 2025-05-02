@@ -10,9 +10,7 @@
 extends "res://entity/interface.gd"
 
 func on_jump_animation_finished() -> void:
-	current_state = EntityState.IDLE
 	animation_player.play(JUMP_ANIMATION[facing_direction])
 
 func on_dash_animation_finished() -> void:
-	current_state = EntityState.IDLE
 	animation_player.play(JUMP_ANIMATION[facing_direction])
