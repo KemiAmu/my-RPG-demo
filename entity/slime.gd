@@ -26,7 +26,7 @@ func _physics_process(delta: float) -> void:
 				redirect_animation()
 
 		# [TODO] 靠近玩家时冲撞并进入 BattleScene
-		if target_position.length_squared() < 999:
+		if target_position.length_squared() < 810:
 			plan_state = EntityState.DASH
 
 		# 向 path_track 移动
