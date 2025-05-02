@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=4 uid="uid://bhujotcerbtia"]
 
-[ext_resource type="PackedScene" uid="uid://byxyw37avswvh" path="res://scene/interface.tscn" id="1_s4bav"]
+[ext_resource type="PackedScene" uid="uid://byxyw37avswvh" path="res://world_scene/interface.tscn" id="1_s4bav"]
 [ext_resource type="PackedScene" uid="uid://dkkaahy0p1ogy" path="res://entity/slime.tscn" id="2_s4bav"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ngb07"]
@@ -20,6 +20,7 @@ collision_mask = 0
 position = Vector2(86, 3)
 shape = SubResource("CircleShape2D_ngb07")
 
-[node name="Slime" parent="YSort" index="1" instance=ExtResource("2_s4bav")]
+[node name="Slime" parent="YSort" index="1" node_paths=PackedStringArray("target_node") instance=ExtResource("2_s4bav")]
 position = Vector2(27, -54)
+target_node = NodePath("../Player")
 current_state = 3
