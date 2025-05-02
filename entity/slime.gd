@@ -28,6 +28,9 @@ func _physics_process(delta: float) -> void:
 		# [TODO] 靠近玩家时冲撞并进入 BattleScene
 		if target_position.length_squared() < 810:
 			plan_state = EntityState.DASH
+		
+		if target_position.length_squared() < 81:
+			pass # Battle
 
 		# 向 path_track 移动
 		if can_move:
