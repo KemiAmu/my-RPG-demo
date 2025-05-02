@@ -41,11 +41,17 @@ tracks/1/path = NodePath("..")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [],
-"method": &"on_dash_animation_finished"
+"method": &"_can_move"
+}, {
+"args": [],
+"method": &"_can_not_move"
+}, {
+"args": [],
+"method": &"_on_dash_animation_finished"
 }]
 }
 
@@ -71,11 +77,17 @@ tracks/1/path = NodePath("..")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [],
-"method": &"on_dash_animation_finished"
+"method": &"_can_move"
+}, {
+"args": [],
+"method": &"_can_not_move"
+}, {
+"args": [],
+"method": &"_on_dash_animation_finished"
 }]
 }
 
@@ -102,11 +114,17 @@ tracks/1/path = NodePath("..")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(1.91667),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.5, 1.41667, 1.91667),
+"transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [],
-"method": &"on_jump_animation_finished"
+"method": &"_can_move"
+}, {
+"args": [],
+"method": &"_can_not_move"
+}, {
+"args": [],
+"method": &"_on_jump_animation_finished"
 }]
 }
 
@@ -133,11 +151,17 @@ tracks/1/path = NodePath("..")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(1.91667),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.5, 1.41667, 1.91667),
+"transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [],
-"method": &"on_jump_animation_finished"
+"method": &"_can_move"
+}, {
+"args": [],
+"method": &"_can_not_move"
+}, {
+"args": [],
+"method": &"_on_jump_animation_finished"
 }]
 }
 
@@ -154,6 +178,9 @@ _data = {
 collision_layer = 20
 collision_mask = 6
 script = ExtResource("2_vx11t")
+plan_state = 3
+can_move = true
+move_speed = 50.0
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(0, -11)

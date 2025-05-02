@@ -12,6 +12,9 @@ extends "res://entity/interface.gd"
 # 预加载战斗场景
 #var battle_scene = preload("res://scene/battle.tscn")
 
+func _ready():
+	Game.set_player_node(self)
+
 func _process(delta: float) -> void:
 	Camera.set_target_position(position + facing_direction * 10)
 

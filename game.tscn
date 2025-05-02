@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctj4w3am2a801"]
+[gd_scene load_steps=4 format=3 uid="uid://ctj4w3am2a801"]
 
 [ext_resource type="Script" uid="uid://8qqyvxy6ppfv" path="res://camera.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://bhujotcerbtia" path="res://scene/lawn.tscn" id="1_e2o6t"]
+[ext_resource type="Script" uid="uid://kqv12cn27y5g" path="res://game.gd" id="1_feb5d"]
 
 [node name="Game" type="Node"]
+script = ExtResource("1_feb5d")
 
 [node name="WorldContainer" type="Node2D" parent="."]
 

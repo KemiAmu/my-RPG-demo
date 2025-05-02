@@ -9,14 +9,14 @@
 
 extends Camera2D
 
-@export var TARGET_VIEW_SIZE: Vector2 = Vector2(240, 160)
-@export var DOLLY_DAMPING: float = -7.0
-@export var base_zoom: float = 1.0
-@export var target_position: Vector2 = Vector2(0, 0)
+@export var TARGET_VIEW_SIZE := Vector2(240, 160)
+@export var DOLLY_DAMPING := -7.0
+@export var base_zoom := 1.0
+@export var target_position := Vector2(0, 0)
 
 func _ready() -> void:
 	# change the camera zoom if window resized
-	var window: Window = get_window()
+	var window := get_window()
 	window.size_changed.connect(_on_window_resized.bind(window))
 	_on_window_resized(window)
 	
@@ -26,7 +26,7 @@ func _process(delta: float) -> void:
 
 # resize the camera when window resized
 func _on_window_resized(window: Window) -> void:
-	var view_scale: Vector2 = Vector2(window.size) / TARGET_VIEW_SIZE
+	var view_scale := Vector2(window.size) / TARGET_VIEW_SIZE
 	var view_zoom: float = max(view_scale.x, view_scale.y) * base_zoom
 	self.zoom = Vector2(view_zoom, view_zoom)
 	print("camera zoomed: ", view_zoom)
