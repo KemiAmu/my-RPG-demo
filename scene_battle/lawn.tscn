@@ -34,6 +34,9 @@ collision_mask = 0
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" index="0"]
 polygon = PackedVector2Array(109, -81, 113, 79, -113, 78, -111, -83, 131, -81, 132, -109, -129, -109, -137, 108, 151, 100, 138, -85)
 
+[node name="Player" parent="YSort" index="0"]
+is_battle_active = true
+
 [node name="Aegis" parent="YSort/Player" index="2"]
 monitoring = false
 

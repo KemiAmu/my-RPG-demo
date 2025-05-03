@@ -70,4 +70,4 @@ func apply_movement(target_direction: Vector2, damping: float, delta) -> void:
 
 # Helper method to get current active player node from global system
 func get_player_node() -> CharacterBody2D:
-	return Global.get_player_node if Global else null
+	return Global.get_player_node() if Global else null

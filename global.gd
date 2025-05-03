@@ -12,11 +12,10 @@
 extends Node
 
 # 共享的当前玩家上下文，不限于特定场景的玩家（比如怪物寻路会用到玩家坐标）
-# Note: 编辑器指定
-@export var player_node: CharacterBody2D = null
+var player_node: CharacterBody2D = null
 
 # [TODO] [HACK]
-@export var battle_player_node: CharacterBody2D = null
+var battle_player_node: CharacterBody2D = null
 
 # [PUBLIC]
 func get_player_node() -> CharacterBody2D:
@@ -24,11 +23,12 @@ func get_player_node() -> CharacterBody2D:
 		printerr("Player node not set")
 	return battle_player_node if battle_mod else player_node
 
-# [PUBLIC] [TODO] [REMOVE] 移除（1 引用）
-func set_player_node(new_player_node: CharacterBody2D) -> void:
-	player_node = new_player_node
-
-
+# [PUBLIC] [TODO] [HACK] 地图动态挂载时玩家角色会在 _ready 中注册
+func set_player_node(new_player_node: CharacterBody2D, is_battle_active: bool) -> void:
+	if is_battle_active:
+		battle_player_node = new_player_node
+	else:
+		player_node = new_player_node
 
 # 故事线
 # [TODO] [HACK] 现阶段不支持非线性叙事
@@ -72,10 +72,10 @@ func _load_battle_scene() -> Node:
 	return load("res://scene_battle/" + world_context).instantiate()
 
 # 添加战斗场景到容器
-func _add_battle_scene_to_container(battle_scene: Node) -> void:  # Changed parameter type from Resource to Node
+func _add_battle_scene_to_container(battle_scene: Node) -> void:
 	var battle_container = get_node("/root/Game/BattleContainer")
 	if battle_container:
-		battle_container.call_deferred("add_child", battle_scene)  # Removed redundant instantiate()
+		battle_container.call_deferred("add_child", battle_scene)
 
 # 配置镜像玩家
 func _setup_mirror_player(battle_scene: Node) -> void:
@@ -86,7 +86,7 @@ func _setup_mirror_player(battle_scene: Node) -> void:
 			battle_player_node.show()
 			battle_player_node.set_process_mode(Node.PROCESS_MODE_INHERIT)
 		else:
-			printerr("Built-in mirror player not found")
+			printerr("Built-in mirror player not found in battle scene")
 
 # 转移敌人到战斗场景
 func _transfer_enemy_to_scene(enemy: CharacterBody2D, battle_scene: Node) -> void:
@@ -101,4 +101,6 @@ func _transfer_enemy_to_scene(enemy: CharacterBody2D, battle_scene: Node) -> voi
 # [PUBLIC] [TODO] [HACK] 结束 Battle，结算呢？
 func end_battle() -> void:
 	battle_mod = false
+	if battle_player_node:
+		battle_player_node.queue_free()
 	battle_player_node = null

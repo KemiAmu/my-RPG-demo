@@ -14,8 +14,10 @@ extends "res://entity/interface.gd"
 # 预加载战斗场景
 #var battle_scene = preload("res://scene/battle.tscn")
 
+@export var is_battle_active := false
+
 func _ready():
-	Global.set_player_node(self)
+	Global.set_player_node(self, is_battle_active)
 
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
