@@ -11,7 +11,7 @@
 
 extends Node
 
-# 共享的当前玩家上下文，不限于特定场景的玩家（比如怪物寻路会用到玩家坐标）
+# [TODO] [HACK] 共享的当前玩家上下文，不限于特定场景的玩家（比如怪物寻路会用到玩家坐标）
 var player_node: CharacterBody2D = null
 
 # [TODO] [HACK]
@@ -58,7 +58,7 @@ func start_battle(enemy: CharacterBody2D) -> void:
 	else:
 		printerr("Failed to load battle scene")
 
-# 冻结世界场景和玩家
+# [TODO] [HACK] 冻结世界场景和玩家
 func _freeze_world_and_player() -> void:
 	var world_container = get_node("/root/Game/WorldContainer")
 	if world_container:
@@ -67,17 +67,17 @@ func _freeze_world_and_player() -> void:
 		player_node.call_deferred("hide")
 		player_node.call_deferred("set_process_mode", Node.PROCESS_MODE_DISABLED)
 
-# 加载战斗场景
+# [TODO] [HACK] 加载战斗场景
 func _load_battle_scene() -> Node:
 	return load("res://scene_battle/" + world_context).instantiate()
 
-# 添加战斗场景到容器
+# [TODO] [HACK] 添加战斗场景到容器
 func _add_battle_scene_to_container(battle_scene: Node) -> void:
 	var battle_container = get_node("/root/Game/BattleContainer")
 	if battle_container:
 		battle_container.call_deferred("add_child", battle_scene)
 
-# 配置镜像玩家
+# [TODO] [HACK] 配置镜像玩家
 func _setup_mirror_player(battle_scene: Node) -> void:
 	var ysort_node = battle_scene.get_node("YSort")
 	if ysort_node:
@@ -88,7 +88,7 @@ func _setup_mirror_player(battle_scene: Node) -> void:
 		else:
 			printerr("Built-in mirror player not found in battle scene")
 
-# 转移敌人到战斗场景
+# [TODO] [HACK] 转移敌人到战斗场景
 func _transfer_enemy_to_scene(enemy: CharacterBody2D, battle_scene: Node) -> void:
 	var ysort_node = battle_scene.get_node("YSort")
 	if ysort_node:
