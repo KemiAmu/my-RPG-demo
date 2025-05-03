@@ -15,13 +15,17 @@ extends "res://entity/interface.gd"
 @export var can_move := true
 
 func _physics_process(delta: float) -> void:
+	# 添加空值保护
 	var target_node = Global.get_player_node() if Global else null
 	if not target_node:
 		printerr("Target node not set!")
 		return
+	
+	# 使用call_deferred确保安全操作
+	call_deferred("_update_movement", target_node.position, delta)
 
-	var target_position = target_node.position - position
-
+func _update_movement(target_pos: Vector2, delta: float) -> void:
+	var target_position = target_pos - position
 	_update_facing_direction(target_position)
 	_handle_state_transition(target_position)
 	_execute_movement(target_position, delta)

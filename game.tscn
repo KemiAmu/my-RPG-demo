@@ -9,9 +9,6 @@
 
 [node name="Lawn" parent="WorldContainer" instance=ExtResource("1_e2o6t")]
 
-[node name="Player" parent="WorldContainer/Lawn/YSort" index="0"]
-is_battle_active = false
-
 [node name="BattleContainer" type="Node2D" parent="."]
 
 [node name="GlobalUI" type="Control" parent="."]

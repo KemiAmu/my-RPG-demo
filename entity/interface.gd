@@ -66,7 +66,9 @@ func apply_movement(target_direction: Vector2, damping: float, delta) -> void:
 		target_direction * move_speed,
 		1 - exp(damping * delta)
 	)
-	move_and_slide()
+	# move_and_slide()
+	set_velocity(velocity)
+	call_deferred("move_and_slide")
 
 # Helper method to get current active player node from global system
 func get_player_node() -> CharacterBody2D:

@@ -51,10 +51,13 @@ func _physics_process(delta: float) -> void:
 func _on_aegis_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
 		var enemy := body as CharacterBody2D
+		enemy.set_physics_process(false) # 立即停止物理计算
 		if not enemy:
 			printerr("Enemy is null")
 			return
 		# [TODO] [HACK]
+		print("触发战斗的敌人：", enemy.name)
+		print("敌人当前场景：", enemy.get_tree().current_scene.name)
 		enemy.hide()
 		enemy.set_process_mode(Node.PROCESS_MODE_DISABLED)
 		Global.start_battle(enemy)
