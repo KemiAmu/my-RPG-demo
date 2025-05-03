@@ -13,13 +13,13 @@ extends "res://entity/interface.gd"
 @export var plan_state := EntityState.JUMP
 # 是否允许移动的标记
 @export var can_move := true
-# player 的节点，史莱姆的移动目标
-@export var target_node: Node2D = null
 
 func _physics_process(delta: float) -> void:
+	var target_node = Global.get_player_node() if Global else null
 	if not target_node:
 		printerr("Target node not set!")
-	
+		return
+
 	var target_position = target_node.position - position
 
 	_update_facing_direction(target_position)

@@ -15,6 +15,9 @@ extends Node
 # Note: 编辑器指定
 @export var player_node: CharacterBody2D = null
 
+# [TODO] [HACK]
+@export var battle_player_node: CharacterBody2D = null
+
 # [PUBLIC]
 func get_player_node() -> CharacterBody2D:
 	if player_node == null:
@@ -24,6 +27,7 @@ func get_player_node() -> CharacterBody2D:
 # [PUBLIC] [TODO] [REMOVE] 移除（1 引用）
 func set_player_node(new_player_node: CharacterBody2D) -> void:
 	player_node = new_player_node
+
 
 
 # 故事线
@@ -40,9 +44,6 @@ func get_world_context() -> String:
 
 # [TODO] [HACK]
 @export var battle_mod := false
-
-# [TODO] [HACK]
-@export var battle_player_node: CharacterBody2D = null
 
 # [PUBLIC] [TODO] [HACK] 开始 Battle
 func start_battle(enemy: CharacterBody2D) -> void:
