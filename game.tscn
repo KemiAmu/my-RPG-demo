@@ -1,8 +1,5 @@
-[gd_scene load_steps=2 format=3 uid="uid://ctj4w3am2a801"]
-
-[ext_resource type="Script" uid="uid://u5tuvl0kubsk" path="res://game.gd" id="1_80nbo"]
+[gd_scene format=3 uid="uid://ctj4w3am2a801"]
 
 [node name="Game" type="Node"]
-script = ExtResource("1_80nbo")
 
 [node name="GlobalUI" type="CanvasLayer" parent="."]
