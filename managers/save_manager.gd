@@ -7,7 +7,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# 存档管理器单例，满足全局动态加载和保存
+# 存档管理器，满足全局动态加载和保存
 class_name SaveManager
 extends Resource
 
