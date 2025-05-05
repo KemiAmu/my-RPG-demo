@@ -17,20 +17,18 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Camera="*res://camera.gd"
-Global="*res://global.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 [dialogic]
 
 directories/dch_directory={
-"character": "res://character.dch"
+"old/character": "res://old/character.dch"
 }
 directories/dtl_directory={
-"timeline": "res://timeline.dtl"
+"old/timeline": "res://old/timeline.dtl"
 }
-layout/style_list=["res://New_File.tres"]
-layout/default_style="res://New_File.tres"
+layout/style_list=[]
+layout/default_style=""
 glossary/default_case_sensitive=true
 variables={}
 extensions_folder="res://addons/dialogic_additions"

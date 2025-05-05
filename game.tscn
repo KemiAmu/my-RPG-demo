@@ -1,40 +1,5 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctj4w3am2a801"]
-
-[ext_resource type="Script" uid="uid://8qqyvxy6ppfv" path="res://camera.gd" id="1_80nbo"]
-[ext_resource type="PackedScene" uid="uid://bhujotcerbtia" path="res://scene_world/lawn.tscn" id="1_e2o6t"]
+[gd_scene format=3 uid="uid://ctj4w3am2a801"]
 
 [node name="Game" type="Node"]
 
-[node name="WorldContainer" type="Node2D" parent="."]
-
-[node name="Lawn" parent="WorldContainer" instance=ExtResource("1_e2o6t")]
-
-[node name="Slime" parent="WorldContainer/Lawn/YSort" index="1"]
-position = Vector2(235, -53)
-
-[node name="BattleContainer" type="Node2D" parent="."]
-
-[node name="GlobalUI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
-script = ExtResource("1_80nbo")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Label" type="Label" parent="CanvasLayer"]
-anchors_preset = -1
-anchor_left = 0.476389
-anchor_top = 0.264
-anchor_right = 0.805
-anchor_bottom = 0.8
-offset_left = -77.0
-offset_top = 74.28
-offset_right = -35.6
-offset_bottom = -9.0
-text = "如果动态窗口，那么 UI 也是一个难点"
-metadata/_edit_use_anchors_ = true
-
-[editable path="WorldContainer/Lawn"]
+[node name="GlobalUI" type="CanvasLayer" parent="."]
