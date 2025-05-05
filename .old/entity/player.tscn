@@ -1,0 +1,130 @@
+[gd_scene load_steps=11 format=3 uid="uid://drorsm32hevne"]
+
+[ext_resource type="Script" uid="uid://cag2xpt3f3bl4" path="res://entity/player.gd" id="2_qd8qs"]
+[ext_resource type="Texture2D" uid="uid://rd0gojxb8k4a" path="res://entity/player.png" id="2_xlvtu"]
+[ext_resource type="PackedScene" uid="uid://cr6j7b522uc7o" path="res://entity/interface.tscn" id="3_qd8qs"]
+
+[sub_resource type="Animation" id="Animation_qd8qs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_xlvtu"]
+resource_name = "idle_left"
+length = 1.00001
+loop_mode = 1
+step = 0.111111
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.111111, 0.222222, 0.333333, 0.444444, 0.555556, 0.666667, 0.777778, 0.888889),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_3hik6"]
+resource_name = "idle_right"
+length = 1.00001
+loop_mode = 1
+step = 0.111111
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.111111, 0.222222, 0.333333, 0.444444, 0.555556, 0.666667, 0.777778, 0.888889),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13, 14, 15, 16, 17, 18]
+}
+
+[sub_resource type="Animation" id="Animation_tnfmr"]
+resource_name = "move_left"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [20, 21, 22, 23, 24, 25, 26, 27, 28, 29]
+}
+
+[sub_resource type="Animation" id="Animation_p7obe"]
+resource_name = "move_right"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [30, 31, 32, 33, 34, 35, 36, 37, 38, 39]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3hik6"]
+_data = {
+&"RESET": SubResource("Animation_qd8qs"),
+&"idle_left": SubResource("Animation_xlvtu"),
+&"idle_right": SubResource("Animation_3hik6"),
+&"move_left": SubResource("Animation_tnfmr"),
+&"move_right": SubResource("Animation_p7obe")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qd8qs"]
+
+[node name="Player" instance=ExtResource("3_qd8qs")]
+collision_layer = 16
+collision_mask = 6
+script = ExtResource("2_qd8qs")
+is_battle_active = false
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, -11)
+texture = ExtResource("2_xlvtu")
+hframes = 10
+vframes = 6
+
+[node name="AnimationPlayer" parent="Sprite2D" index="0"]
+libraries = {
+&"": SubResource("AnimationLibrary_3hik6")
+}
+autoplay = "idle_left"
+
+[node name="Aegis" type="Area2D" parent="." index="2"]
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Aegis" index="0"]
+modulate = Color(1, 1, 1, 0.247059)
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_qd8qs")
+
+[connection signal="body_entered" from="Aegis" to="." method="_on_aegis_body_entered"]
