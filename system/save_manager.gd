@@ -35,7 +35,7 @@ func unregister(key: String) -> void:
 	load_funcs.erase(key)
 
 # Save all registered data to file
-func save() -> void:
+func save() -> bool:
 	var data := {}
 	for key in save_funcs:
 		data[key] = save_funcs[key].call()
@@ -46,11 +46,14 @@ func save() -> void:
 		file.close()
 	else:
 		printerr("SaveManager: Failed to open save file")
+		return false
+
+	return true
 
 # Load all registered data from file
-func load() -> void:
+func load() -> bool:
 	if not FileAccess.file_exists(SAVE_PATH):
-		return
+		return false
 
 	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
 	if file:
@@ -58,7 +61,10 @@ func load() -> void:
 		file.close()
 	else:
 		printerr("SaveManager: Failed to open save file")
+		return false
 
 	for key in load_funcs:
 		if loaded_data.has(key):
 			load_funcs[key].call(loaded_data[key])
+
+	return true
