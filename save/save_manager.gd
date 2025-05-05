@@ -25,6 +25,10 @@ func register(key: String, save_cb: Callable, load_cb: Callable) -> void:
 	if loaded_data.has(key):
 		load_cb.call(loaded_data[key])
 
+func unregister(key: String) -> void:
+	save_funcs.erase(key)
+	load_funcs.erase(key)
+
 func save() -> void:
 	var data := {}
 	for key in save_funcs:
