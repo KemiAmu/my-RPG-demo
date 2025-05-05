@@ -14,9 +14,9 @@ extends Resource
 # Path to the save file
 const SAVE_PATH := "user://auto_save.data"
 
-# Dictionary to store save callbacks
+# Save callbacks
 var save_funcs := {}
-# Dictionary to store load callbacks
+# Load callbacks
 var load_funcs := {}
 # Dictionary to store loaded data
 var loaded_data := {}
