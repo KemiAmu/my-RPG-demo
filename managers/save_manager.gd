@@ -44,6 +44,8 @@ func save() -> void:
 	if file:
 		file.store_var(data)
 		file.close()
+	else:
+		printerr("Failed to open save file")
 
 # Load all registered data from file
 func load() -> void:
@@ -54,6 +56,8 @@ func load() -> void:
 	if file:
 		loaded_data = file.get_var()
 		file.close()
+	else:
+		printerr("Failed to open save file")
 
 	for key in load_funcs:
 		if loaded_data.has(key):
