@@ -81,7 +81,7 @@ func update_facing_direction(target_direction: Vector2) -> void:
 func apply_movement(target_direction: Vector2, damping: float, delta) -> void:
 	velocity = velocity.lerp (
 		target_direction.normalized() * move_speed,
-		1 - exp(damping * delta)
+		1 - exp(damping * move_damping * delta)
 	)
 	move_and_slide()
 
