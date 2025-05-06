@@ -41,16 +41,12 @@ var facing_direction := Vector2.RIGHT
 
 # Method to update facing direction
 @export var facing_updater := FacingMode.TRACK
-
 # Movement speed in pixels per second
 @export var move_speed := 100.0
-
 # Damping factor for movement smoothing (negative value)
 @export var move_damping := -20.0
-
 # Current state of the character from State enum
 @export var current_state := EntityState.IDLE
-
 # Reference to the AnimationPlayer node for character animations
 @export var animation_player: AnimationPlayer
 
