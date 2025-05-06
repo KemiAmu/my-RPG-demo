@@ -68,7 +68,7 @@
 - CombatCamera
 ### Dialogic Layout
 - 角色立绘 & 对话框
-### UI容器
+### UI Manager
 - 全局 HUD
 - 战斗 UI
 - 菜单界面

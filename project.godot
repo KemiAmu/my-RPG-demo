@@ -18,12 +18,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+UIManager="*res://system/ui_manager.gd"
 
 [dialogic]
 
-directories/dch_directory={
-"character": "res://assets/character/character.dch"
-}
+directories/dch_directory={}
 directories/dtl_directory={
 "timeline": "res://assets/timeline/timeline.dtl"
 }

@@ -1,4 +1,4 @@
-# ui_manager.gd
+# signal_bus.gd
 # Copyright 2025 Kemi-Amu
 #
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,6 +6,3 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # SPDX-License-Identifier: MPL-2.0
-
-# 配合 Dialogic 负责全局的 UI 管理和调度
-extends Node
