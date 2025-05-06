@@ -17,26 +17,6 @@ class_name EntityInterface
 # HORIZONTAL: Horizontal-only movement (left/right)
 enum FacingMode { TRACK, HORIZONTAL }
 
-# Current facing direction of the entity
-var facing_direction := Vector2.RIGHT
-
-# Method to update facing direction
-@export var facing_updater := FacingMode.TRACK
-
-# Determine facing direction based on input
-func calculate_facing_direction(target_direction: Vector2) -> Vector2:
-	if facing_updater == FacingMode.TRACK:
-		if abs(target_direction.x) * 1.2 < abs(target_direction.y):
-			return Vector2(0, signf(target_direction.y))
-	return Vector2(signf(target_direction.x), 0)
-
-# Updates facing direction based on target direction and current facing updater method
-func update_facing_direction(target_direction: Vector2) -> void:
-	var _facing = calculate_facing_direction(target_direction)
-	facing_direction = facing_direction if _facing == Vector2.ZERO else _facing
-
-
-
 # Entity states
 enum EntityState { IDLE, MOVE, DASH, JUMP }
 
@@ -66,6 +46,12 @@ const JUMP_ANIMATION := {
 	Vector2.UP: "jump_up"
 }
 
+# Current facing direction of the entity
+var facing_direction := Vector2.RIGHT
+
+# Method to update facing direction
+@export var facing_updater := FacingMode.TRACK
+
 # Movement speed in pixels per second
 @export var move_speed := 100.0
 
@@ -77,6 +63,18 @@ const JUMP_ANIMATION := {
 
 # Reference to the AnimationPlayer node for character animations
 @export var animation_player: AnimationPlayer
+
+# Determine facing direction based on input
+func calculate_facing_direction(target_direction: Vector2) -> Vector2:
+	if facing_updater == FacingMode.TRACK:
+		if abs(target_direction.x) * 1.2 < abs(target_direction.y):
+			return Vector2(0, signf(target_direction.y))
+	return Vector2(signf(target_direction.x), 0)
+
+# Updates facing direction based on target direction and current facing updater method
+func update_facing_direction(target_direction: Vector2) -> void:
+	var _facing = calculate_facing_direction(target_direction)
+	facing_direction = facing_direction if _facing == Vector2.ZERO else _facing
 
 # Handle character movement
 # Note: Should be called from _physics_process(delta) for proper physics frame timing
