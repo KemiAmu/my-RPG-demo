@@ -6,9 +6,10 @@
 radius = 2.0
 height = 8.0
 
-[node name="EntityInterface" type="CharacterBody2D"]
+[node name="EntityInterface" type="CharacterBody2D" node_paths=PackedStringArray("animation_player")]
 texture_filter = 3
 script = ExtResource("1_c0ahn")
+animation_player = NodePath("Sprite2D/AnimationPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
