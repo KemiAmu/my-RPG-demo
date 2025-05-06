@@ -18,15 +18,15 @@ config/icon="res://icon.svg"
 [autoload]
 
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
-SignalBus="*res://system/signal_bus.gd"
-GameManager="*res://system/game_manager.gd"
-UIManager="*res://system/ui_manager.gd"
+SignalBus="*res://scripts/systems/signal_bus.gd"
+GameManager="*res://scripts/systems/game_manager.gd"
+UIManager="*res://scripts/systems/ui_manager.gd"
 
 [dialogic]
 
 directories/dch_directory={}
 directories/dtl_directory={
-"timeline": "res://assets/timeline/timeline.dtl"
+"timeline": "res://dialogue/timeline/timeline.dtl"
 }
 layout/style_list=[]
 layout/default_style=""
