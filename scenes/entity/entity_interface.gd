@@ -58,10 +58,6 @@ var facing_direction := Vector2.RIGHT
 func play_animation(animation_name: String) -> void:
 	animation_player.play(animation_name)
 
-# Handle state behavior
-func handle_state():
-	play_animation(ENTITY_STATE_MAP[current_state] + "_" + ENTITY_FACING_MAP[facing_direction])
-
 # Determine facing direction based on input
 func calculate_facing_direction(target_direction: Vector2) -> Vector2:
 	if facing_updater == FacingMode.TRACK:
@@ -87,7 +83,7 @@ func apply_movement(target_direction: Vector2, damping: float, delta) -> void:
 # Note: Should be called from _physics_process(delta) for proper physics frame timing
 func traveling_towards(target_direction: Vector2, damping: float, delta) -> void:
 	update_facing_direction(target_direction)
-	handle_state()
+	play_animation(ENTITY_STATE_MAP[current_state] + "_" + ENTITY_FACING_MAP[facing_direction])
 	apply_movement(target_direction, damping, delta)
 
 # Move to target position (automatically updates facing direction)
