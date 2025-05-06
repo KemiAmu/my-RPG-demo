@@ -13,7 +13,7 @@ class_name SaveManager
 extends Resource
 
 # Path to the save file
-const SAVE_PATH := "user://auto_save.data"
+const SAVE_PATH := "user://save.data"
 
 # Save callbacks
 var save_funcs := {}
