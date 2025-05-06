@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+SignalBus="*res://system/signal_bus.gd"
+GameManager="*res://system/game_manager.gd"
 UIManager="*res://system/ui_manager.gd"
 
 [dialogic]
