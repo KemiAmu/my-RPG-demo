@@ -20,30 +20,20 @@ enum FacingMode { TRACK, HORIZONTAL }
 # Entity State Machine
 enum EntityState { IDLE, MOVE, DASH, JUMP }
 
-# Animation naming conventions
-const IDLE_ANIMATION := {
-	Vector2.RIGHT: "idle_right",
-	Vector2.LEFT: "idle_left",
-	Vector2.DOWN: "idle_down",
-	Vector2.UP: "idle_up"
+# Maps entity states to their corresponding animation names
+const ENTITY_STATE_MAP := {
+	EntityState.IDLE: "idle",
+	EntityState.MOVE: "move",
+	EntityState.DASH: "dash",
+	EntityState.JUMP: "jump"
 }
-const MOVE_ANIMATION := {
-	Vector2.RIGHT: "move_right",
-	Vector2.LEFT: "move_left",
-	Vector2.DOWN: "move_down",
-	Vector2.UP: "move_up"
-}
-const DASH_ANIMATION := {
-	Vector2.RIGHT: "dash_right",
-	Vector2.LEFT: "dash_left",
-	Vector2.DOWN: "dash_down",
-	Vector2.UP: "dash_up"
-}
-const JUMP_ANIMATION := {
-	Vector2.RIGHT: "jump_right",
-	Vector2.LEFT: "jump_left",
-	Vector2.DOWN: "jump_down",
-	Vector2.UP: "jump_up"
+
+# Maps Vector2 directions to their corresponding string names
+const ENTITY_FACING_MAP := {
+	Vector2.RIGHT: "right",
+	Vector2.LEFT: "left",
+	Vector2.DOWN: "down",
+	Vector2.UP: "up"
 }
 
 # Current facing direction of the entity
@@ -63,6 +53,14 @@ var facing_direction := Vector2.RIGHT
 
 # Reference to the AnimationPlayer node for character animations
 @export var animation_player: AnimationPlayer
+
+# Function to play an animation
+func play_animation(animation_name: String) -> void:
+	animation_player.play(animation_name)
+
+# Handle state behavior
+func handle_state():
+	play_animation(ENTITY_STATE_MAP[current_state] + "_" + ENTITY_FACING_MAP[facing_direction])
 
 # Determine facing direction based on input
 func calculate_facing_direction(target_direction: Vector2) -> Vector2:
@@ -89,6 +87,7 @@ func apply_movement(target_direction: Vector2, damping: float, delta) -> void:
 # Note: Should be called from _physics_process(delta) for proper physics frame timing
 func traveling_towards(target_direction: Vector2, damping: float, delta) -> void:
 	update_facing_direction(target_direction)
+	handle_state()
 	apply_movement(target_direction, damping, delta)
 
 # Move to target position (automatically updates facing direction)
