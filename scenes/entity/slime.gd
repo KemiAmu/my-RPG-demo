@@ -7,15 +7,18 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-extends "res://entity/interface.gd"
+# 史莱姆的生物逻辑
+# Slime AI
+extends EntityInterface
 
-# 当前计划状态（JUMP/DASH）
+# 计划状态（JUMP/DASH）
 @export var plan_state := EntityState.JUMP
 # 是否允许移动的标记
 @export var can_move := true
 
 func _physics_process(delta: float) -> void:
 	# 添加空值保护
+	# TODO FIXME 搜索玩家
 	var target_node = Global.get_player_node() if Global else null
 	if not target_node:
 		printerr("Target node not set!")

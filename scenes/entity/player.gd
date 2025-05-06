@@ -7,12 +7,11 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+# 玩家的视图层逻辑
+# Player view layer logic
 extends EntityInterface
 
-@onready var aegis := $Aegis
-
-@export var is_battle_active := false
-
+# TODO HACK
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
 	#Camera.set_target_position(position + facing_direction * 10)
@@ -50,7 +49,7 @@ func _on_interaction_area_body_entered(body: Node2D) -> void:
 		if not enemy:
 			printerr("Enemy is null")
 			return
-		# [TODO] [HACK]
+		# TODO HACK
 		print("触发战斗的敌人：", enemy.name)
 		print("敌人当前场景：", enemy.get_tree().current_scene.name)
 		enemy.hide()
