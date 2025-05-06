@@ -17,7 +17,7 @@ class_name EntityInterface
 # HORIZONTAL: Horizontal-only movement (left/right)
 enum FacingMode { TRACK, HORIZONTAL }
 
-# Entity states
+# Entity State Machine
 enum EntityState { IDLE, MOVE, DASH, JUMP }
 
 # Animation naming conventions
