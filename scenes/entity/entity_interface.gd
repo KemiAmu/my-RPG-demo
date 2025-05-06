@@ -73,8 +73,8 @@ func calculate_facing_direction(target_direction: Vector2) -> Vector2:
 
 # Updates facing direction based on target direction and current facing updater method
 func update_facing_direction(target_direction: Vector2) -> void:
-	var _facing = calculate_facing_direction(target_direction)
-	facing_direction = facing_direction if _facing == Vector2.ZERO else _facing
+	var facing = calculate_facing_direction(target_direction)
+	facing_direction = facing_direction if facing == Vector2.ZERO else facing
 
 # Handle character movement
 # Note: Should be called from _physics_process(delta) for proper physics frame timing
