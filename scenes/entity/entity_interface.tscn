@@ -1,9 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://cy88lnmv3mm4u"]
 
-[ext_resource type="Script" uid="uid://d73oswfomyrm" path="res://entities/entity_interface/entity_interface.gd" id="1_kl6me"]
+[ext_resource type="Script" uid="uid://d73oswfomyrm" path="res://scenes/entity/entity_interface.gd" id="1_c0ahn"]
 
 [node name="EntityInterface" type="CharacterBody2D"]
-script = ExtResource("1_kl6me")
+texture_filter = 3
+script = ExtResource("1_c0ahn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 

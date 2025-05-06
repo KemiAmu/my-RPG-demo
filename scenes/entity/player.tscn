@@ -1,10 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://dv53va3nyo5tf"]
+[gd_scene load_steps=4 format=3 uid="uid://dv53va3nyo5tf"]
 
-[ext_resource type="PackedScene" uid="uid://cy88lnmv3mm4u" path="res://entities/entity_interface/entity_interface.tscn" id="1_ucweq"]
+[ext_resource type="PackedScene" uid="uid://cy88lnmv3mm4u" path="res://scenes/entity/entity_interface.tscn" id="1_gdab3"]
+[ext_resource type="Texture2D" uid="uid://b6rv62xu418fv" path="res://scenes/entity/player.png" id="2_tgyl1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_symyc"]
 
-[node name="Player" instance=ExtResource("1_ucweq")]
+[node name="Player" instance=ExtResource("1_gdab3")]
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_tgyl1")
+hframes = 10
+vframes = 6
 
 [node name="InteractionArea" type="Area2D" parent="." index="2"]
 
