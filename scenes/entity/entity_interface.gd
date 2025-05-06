@@ -55,16 +55,15 @@ func play_animation(animation_name: String) -> void:
 	animation_player.play(animation_name)
 
 # Determine facing direction based on input
-func calculate_facing_direction(target_direction: Vector2) -> Vector2:
-	if facing_updater == FacingMode.TRACK:
-		if abs(target_direction.x) * 1.2 < abs(target_direction.y):
-			return Vector2(0, signf(target_direction.y))
-	return Vector2(signf(target_direction.x), 0)
+func set_facing_direction(target_direction: Vector2) -> void:
+	if facing_updater == FacingMode.TRACK and abs(target_direction.x) * 1.2 < abs(target_direction.y):
+		facing_direction = Vector2(0, signf(target_direction.y))
+	facing_direction = Vector2(signf(target_direction.x), 0)
 
 # Updates facing direction based on target direction and current facing updater method
 func update_facing_direction(target_direction: Vector2) -> void:
-	var facing = calculate_facing_direction(target_direction)
-	facing_direction = facing if facing != Vector2.ZERO else facing_direction
+	if target_direction != Vector2.ZERO:
+		set_facing_direction(target_direction)
 
 # Handle character movement
 # Note: Should be called from _physics_process(delta) for proper physics frame timing
@@ -85,5 +84,4 @@ func traveling_towards(target_direction: Vector2, damping: float, delta) -> void
 # Move to target position (automatically updates facing direction)
 # Note: Should be called from _physics_process(delta) for proper physics frame timing
 func traveling_to(target_position: Vector2, damping: float, delta) -> void:
-	var target_direction := (target_position - position)
-	traveling_towards(target_direction, damping, delta)
+	traveling_towards((target_position - position), damping, delta)

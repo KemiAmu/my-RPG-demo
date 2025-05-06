@@ -127,4 +127,4 @@ modulate = Color(1, 1, 1, 0.247059)
 position = Vector2(0, -3)
 shape = SubResource("CircleShape2D_qd8qs")
 
-[connection signal="body_entered" from="InteractionArea" to="." method="_on_aegis_body_entered"]
+[connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_body_entered"]

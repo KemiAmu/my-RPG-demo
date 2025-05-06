@@ -28,18 +28,11 @@ func _physics_process(delta: float) -> void:
 	if input_direction != Vector2.ZERO:
 		current_state = EntityState.MOVE
 		if input_direction.x:
-			facing_direction = Vector2(sign(input_direction.x), 0)
+			set_facing_direction(input_direction)
 	else:
 		current_state = EntityState.IDLE
-
-	# state
-	if current_state == EntityState.IDLE:
-		animation_player.play(IDLE_ANIMATION[facing_direction])
-		apply_movement(Vector2.ZERO, move_damping, delta)
-
-	elif current_state == EntityState.MOVE:
-		animation_player.play(MOVE_ANIMATION[facing_direction])
-		apply_movement(input_direction.normalized(), move_damping, delta)
+	
+	traveling_towards(input_direction, 1, delta)
 
 # 战斗触发逻辑
 func _on_interaction_area_body_entered(body: Node2D) -> void:
