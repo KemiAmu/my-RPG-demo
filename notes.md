@@ -54,20 +54,21 @@
 - 场景预制件
 
 ## 节点树示意
-### 世界场景（动态替换）
+### 世界场景（动态）
 - WorldPlayer
 - NPC
 - 怪物
 - 场景地图
 - 区域触发器
 - WorldCamera
-### 战斗场景（动态替换）
+### 战斗场景（动态）
 - BattlePlayer
 - 怪物
 - 场景地图
 - CombatCamera
+### Dialogic Layout
+- 角色立绘 & 对话框
 ### UI容器
 - 全局 HUD
-- 角色立绘 & 对话框（Dialogic）
 - 战斗 UI
 - 菜单界面
