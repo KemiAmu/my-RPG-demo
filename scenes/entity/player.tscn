@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dv53va3nyo5tf"]
+
+[ext_resource type="PackedScene" uid="uid://cy88lnmv3mm4u" path="res://entities/entity_interface/entity_interface.tscn" id="1_ucweq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_symyc"]
+
+[node name="Player" instance=ExtResource("1_ucweq")]
+
+[node name="InteractionArea" type="Area2D" parent="." index="2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" index="0"]
+shape = SubResource("CircleShape2D_symyc")

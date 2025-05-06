@@ -26,7 +26,7 @@ UIManager="*res://scripts/systems/ui_manager.gd"
 
 directories/dch_directory={}
 directories/dtl_directory={
-"timeline": "res://dialogue/timeline/timeline.dtl"
+"timelines/timeline": "res://dialogues/timelines/timeline.dtl"
 }
 layout/style_list=[]
 layout/default_style=""
