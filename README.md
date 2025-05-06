@@ -1,3 +1,4 @@
+```Markdown
 # 游戏架构图
 
 这是一个 MarkMap 图示，你可以在 [markmap.js.org](https://markmap.js.org/) 中查看。
@@ -72,3 +73,4 @@
 - 全局 HUD
 - 战斗 UI
 - 菜单界面
+```
