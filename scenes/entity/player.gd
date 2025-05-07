@@ -17,6 +17,7 @@ func _process(delta: float) -> void:
 	#Camera.set_target_position(position + facing_direction * 10)
 	pass
 
+# TODO HACK REMOVE 将逻辑层抽离
 func _physics_process(delta: float) -> void:
 	# get input
 	var input_direction := Vector2 (
@@ -34,7 +35,7 @@ func _physics_process(delta: float) -> void:
 	
 	traveling_towards(input_direction, 1, delta)
 
-# 战斗触发逻辑
+# TODO HACK 交互区域
 func _on_interaction_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
 		var enemy := body as CharacterBody2D
