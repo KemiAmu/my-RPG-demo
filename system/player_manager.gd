@@ -22,7 +22,7 @@ func load_player(data: Dictionary) -> void:
 	if players.size() > 0:
 		var player = players[0]
 		if data.has("position"):
-			player.position = Vector2(data["position"]["x"], data["position"]["y"])
+			player.position = data["position"]
 		if data.has("state"):
 			player.current_state = data["state"]
 
@@ -30,7 +30,7 @@ func save_player() -> Dictionary:
 	var data := {}
 	if players.size() > 0:
 		var player = players[0]
-		data["position"] = {"x": player.position.x, "y": player.position.y}
+		data["position"] = player.position
 		data["state"] = player.current_state
 	return data
 
