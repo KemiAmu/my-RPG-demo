@@ -9,8 +9,8 @@
 
 # 玩家的视图层逻辑
 # Player view layer logic
-extends EntityInterface
 class_name PlayerEntity
+extends EntityInterface
 
 func _notification(what: int) -> void:
 	if what in [NOTIFICATION_READY, NOTIFICATION_UNPAUSED]:
