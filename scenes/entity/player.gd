@@ -18,6 +18,7 @@ func _notification(what: int) -> void:
 	elif what in [NOTIFICATION_EXIT_TREE, NOTIFICATION_PAUSED]:
 		PlayerManager.remove_player(self)
 
+# TODO HACK 按照逻辑层/实体层的分工，不应该将状态机写在这
 func handle_physics_updat(input_direction: Vector2, delta: float) -> void:
 	# interpret input
 	if input_direction != Vector2.ZERO:

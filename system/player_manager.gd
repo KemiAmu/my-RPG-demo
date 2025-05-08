@@ -12,6 +12,7 @@
 extends Node
 
 # Save and load
+# TODO FIXME 零存取
 func _ready():
 	SaveManager.register("player", load_player, save_player)
 
@@ -29,7 +30,7 @@ func load_player(data: Dictionary) -> void:
 func save_player() -> Dictionary:
 	var data := {}
 	if players.size() > 0:
-		var player = players[0]
+		var player = players[-1]
 		data["position"] = player.position
 		data["state"] = player.current_state
 	return data
