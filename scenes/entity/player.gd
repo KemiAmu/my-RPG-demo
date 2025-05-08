@@ -18,12 +18,6 @@ func _notification(what: int) -> void:
 	elif what in [NOTIFICATION_EXIT_TREE, NOTIFICATION_PAUSED]:
 		PlayerManager.remove_player(self)
 
-func freeze() -> void:
-	PlayerManager.remove_player(self)
-
-func unfreeze() -> void:
-	PlayerManager.add_player(self)
-
 func handle_physics_updat(input_direction: Vector2, delta: float) -> void:
 	# interpret input
 	if input_direction != Vector2.ZERO:
