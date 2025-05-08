@@ -22,8 +22,6 @@ func handle_physics_updat(input_direction: Vector2, delta: float) -> void:
 	# interpret input
 	if input_direction != Vector2.ZERO:
 		current_state = EntityState.MOVE
-		# if input_direction.x:
-		# 	set_facing_direction(input_direction)
 	else:
 		current_state = EntityState.IDLE
 	
