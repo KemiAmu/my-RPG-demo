@@ -18,7 +18,7 @@ func _notification(what: int) -> void:
 	elif what in [NOTIFICATION_EXIT_TREE, NOTIFICATION_PAUSED]:
 		PlayerManager.remove_player(self)
 
-# TODO HACK 按照逻辑层/实体层的分工，不应该将状态机写在这
+# TODO WONTFIX
 func handle_physics_updat(input_direction: Vector2, delta: float) -> void:
 	# interpret input
 	if input_direction != Vector2.ZERO:
@@ -28,7 +28,7 @@ func handle_physics_updat(input_direction: Vector2, delta: float) -> void:
 	
 	traveling_towards(input_direction, 1, delta)
 
-# TODO HACK 交互区域
+# TODO FIXME
 func _on_interaction_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
 		var enemy := body as CharacterBody2D

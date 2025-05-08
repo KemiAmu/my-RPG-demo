@@ -13,7 +13,7 @@
 extends Node
 
 # Save and load
-# TODO FIXME 零存取
+# TODO FIXME 零存取，场景动态加载，合适的时机不在这
 func _ready():
 	SaveManager.register("player", load_player, save_player)
 
