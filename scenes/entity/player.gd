@@ -10,21 +10,21 @@
 # 玩家的视图层逻辑
 # Player view layer logic
 extends EntityInterface
+class_name PlayerEntity
 
-# TODO HACK
-@warning_ignore("unused_parameter")
-func _process(delta: float) -> void:
-	#Camera.set_target_position(position + facing_direction * 10)
-	pass
+func _notification(what: int) -> void:
+	if what in [NOTIFICATION_READY, NOTIFICATION_UNPAUSED]:
+		PlayerManager.add_player(self)
+	elif what in [NOTIFICATION_EXIT_TREE, NOTIFICATION_PAUSED]:
+		PlayerManager.remove_player(self)
 
-# TODO HACK REMOVE 将逻辑层抽离
-func _physics_process(delta: float) -> void:
-	# get input
-	var input_direction := Vector2 (
-		Input.get_axis("ui_left", "ui_right"),
-		Input.get_axis("ui_up", "ui_down")
-	)
+func freeze() -> void:
+	PlayerManager.remove_player(self)
 
+func unfreeze() -> void:
+	PlayerManager.add_player(self)
+
+func handle_physics_updat(input_direction: Vector2, delta: float) -> void:
 	# interpret input
 	if input_direction != Vector2.ZERO:
 		current_state = EntityState.MOVE
