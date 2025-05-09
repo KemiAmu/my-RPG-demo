@@ -113,8 +113,6 @@ func apply_movement(target_direction: Vector2, damping: float, delta) -> void:
 	)
 	move_and_slide()
 
-
-
 # 向目标方向移动（自动更新面向方向）
 # Move towards target direction (automatically updates facing direction)
 # 注意：应该在 _physics_process(delta) 中调用以获得正确的物理帧计时
