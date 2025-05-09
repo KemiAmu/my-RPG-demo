@@ -121,7 +121,6 @@ func apply_movement(target_direction: Vector2, damping: float, delta) -> void:
 # Note: Should be called from _physics_process(delta) for proper physics frame timing
 func traveling_towards(target_direction: Vector2, damping: float, delta) -> void:
 	update_facing_direction(target_direction)
-	print("target_direction: ", target_direction)
 	play_animation(ENTITY_STATE_MAP[current_state]
 		+ "_"
 		+ ENTITY_FACING_MAP[facing_direction])
