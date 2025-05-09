@@ -7,7 +7,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# TODO HACK FIXME
+# TODO HACK FIXME 这是一个临时实现 AI 乱写的（
+
+# 玩家管理器类，负责玩家实体的生命周期和状态管理
 # Player logic layer with serialization support
 class_name PlayerManager
 extends Node

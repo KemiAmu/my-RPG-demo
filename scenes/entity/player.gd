@@ -12,6 +12,8 @@
 class_name PlayerEntity
 extends EntityInterface
 
+# 处理引擎通知
+# Handle engine notifications
 func _notification(what: int) -> void:
 	if what in [NOTIFICATION_READY, NOTIFICATION_UNPAUSED]:
 		Game.player_manager.add_player(self)
@@ -19,16 +21,20 @@ func _notification(what: int) -> void:
 		Game.player_manager.remove_player(self)
 
 # TODO WONTFIX
+# 处理物理更新
+# Handle physics update
 func handle_physics_update(input_direction: Vector2, delta: float) -> void:
 	# interpret input
 	if input_direction != Vector2.ZERO:
 		current_state = EntityState.MOVE
 	else:
 		current_state = EntityState.IDLE
-	
+
 	traveling_towards(input_direction, 1, delta)
 
 # TODO HACK 遭遇战
+# 交互区域进入处理
+# Interaction area body entered handler
 func _on_interaction_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
 		var enemy := body as EntityInterface
