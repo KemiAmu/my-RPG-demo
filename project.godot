@@ -24,7 +24,6 @@ Game="*res://system/game.gd"
 
 directories/dch_directory={}
 directories/dtl_directory={
-"timeline": "res://dialogues/timeline/timeline.dtl",
 "welcome": "res://dialogues/timeline/welcome.dtl"
 }
 layout/style_list=[]
