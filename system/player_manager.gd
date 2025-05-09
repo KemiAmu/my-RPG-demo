@@ -7,16 +7,18 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+# TODO HACK FIXME
 # Player logic layer with serialization support
 class_name PlayerManager
 extends Node
+
 signal player_added(player: PlayerEntity)
 signal player_removed(player: PlayerEntity)
 
 # Player entity management
 var _player: PlayerEntity = null
-var _pending_load_data: Dictionary = {}
-@export var player_scene: PackedScene
+var _pending_load_data := {}
+var player_scene := preload("res://scenes/entity/player.tscn")
 
 #region Persistence
 # 注册玩家数据持久化回调
