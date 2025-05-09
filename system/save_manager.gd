@@ -49,6 +49,8 @@
 # Note: All callbacks must be bound methods (use funcref() if needed)
 # The save file is stored in Godot's user:// directory (see OS.get_user_data_dir())
 
+# 存档管理器，满足全局动态加载和保存
+# Save manager for global dynamic loading and saving
 class_name SaveManager
 extends Resource
 
