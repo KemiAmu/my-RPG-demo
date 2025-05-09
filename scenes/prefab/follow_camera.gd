@@ -7,7 +7,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# 跟随相机 2D
+# Follow Camera 2D
 #
 # 一个带有平滑阻尼和自动缩放调整的相机，跟随目标位置并根据窗口大小自动调整缩放以保持目标视图区域
 #
@@ -40,8 +40,8 @@
 # 3. Adjust TARGET_VIEW_SIZE to control the base view area
 # 4. Use set_base_zoom() to control additional zoom levels
 
-# 跟随相机
-# Follow Camera
+# 可以跟随目标的相机
+# A camera that can follow targets
 extends Camera2D
 
 # 目标视图大小 / Target view size

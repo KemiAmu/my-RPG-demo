@@ -7,7 +7,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# Save Manager 文档
+# Save Manager
 #
 # SaveManager 类提供了一个集中式的游戏存档数据管理系统。
 # 它允许为游戏的不同部分注册保存/加载回调函数，
@@ -28,7 +28,7 @@
 # 注意: 所有回调必须是绑定方法（如果需要可使用 funcref()）
 # 存档文件存储在 Godot 的 user:// 目录下（参见 OS.get_user_data_dir()）
 
-# Save Manager Documentation
+# Save Manager
 #
 # The SaveManager class provides a centralized system for managing game save data.
 # It allows registration of save/load callbacks for different parts of the game,
