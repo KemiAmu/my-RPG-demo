@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5uhx3tboi2l8"]
+
+[ext_resource type="PackedScene" uid="uid://cihf6dxqga20e" path="res://scenes/entity/slime.tscn" id="1_yokrj"]
+
+[node name="Test" type="Node"]
+
+[node name="Slime" parent="." instance=ExtResource("1_yokrj")]
+position = Vector2(360, 151)

@@ -20,8 +20,8 @@ class_name EntityInterface
 # HORIZONTAL: Horizontal-only movement (left/right)
 enum FacingMode { TRACK, HORIZONTAL }
 
-# 实体状态机
-# Entity State Machine
+# 实体状态
+# Entity State
 enum EntityState { IDLE, MOVE, DASH, JUMP }
 
 # 将实体状态映射到对应的动画名称
@@ -62,6 +62,16 @@ var facing_direction := Vector2.RIGHT
 # Reference to the AnimationPlayer node for character animations
 @export var animation_player: AnimationPlayer
 
+# 获取当前实体状态
+# Get current entity state
+func get_current_state() -> EntityState:
+	return current_state
+
+# 设置当前实体状态
+# Set current entity state
+func set_current_state(new_state: EntityState) -> void:
+	current_state = new_state
+
 # 播放动画的函数
 # Function to play an animation
 func play_animation(animation_name: String) -> void:
@@ -70,7 +80,8 @@ func play_animation(animation_name: String) -> void:
 # 根据输入确定面向方向
 # Determine facing direction based on input
 func set_facing_direction(target_direction: Vector2) -> void:
-	if facing_updater == FacingMode.TRACK and abs(target_direction.x) * 1.2 < abs(target_direction.y):
+	if facing_updater == FacingMode.TRACK \
+	and abs(target_direction.x) * 1.2 < abs(target_direction.y):
 		facing_direction = Vector2(0, signf(target_direction.y))
 	facing_direction = Vector2(signf(target_direction.x), 0)
 
@@ -97,7 +108,10 @@ func apply_movement(target_direction: Vector2, damping: float, delta) -> void:
 # Note: Should be called from _physics_process(delta) for proper physics frame timing
 func traveling_towards(target_direction: Vector2, damping: float, delta) -> void:
 	update_facing_direction(target_direction)
-	play_animation(ENTITY_STATE_MAP[current_state] + "_" + ENTITY_FACING_MAP[facing_direction])
+	print("target_direction: ", target_direction)
+	play_animation(ENTITY_STATE_MAP[current_state]
+		+ "_"
+		+ ENTITY_FACING_MAP[facing_direction])
 	apply_movement(target_direction, damping, delta)
 
 # 移动到目标位置（自动更新面向方向）
