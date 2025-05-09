@@ -15,13 +15,3 @@ extends Node
 # Using Dialogic
 func _ready() -> void:
 	Dialogic.start("welcome")
-	Dialogic.signal_event.connect(_dialogic_event)
-
-# 事件处理器
-# Event handler
-func _dialogic_event(what: String) -> void:
-	match what:
-		"start_game":
-			Game.signal_bus.start_game.emit()
-		"exit_game":
-			Game.signal_bus.exit_game.emit()

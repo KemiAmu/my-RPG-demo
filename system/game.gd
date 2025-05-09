@@ -18,10 +18,6 @@ var save_manager := SaveManager.new()
 var player_manager := PlayerManager.new()
 var signal_bus := SignalBus.new()
 
-# 帮助 Dialogic 发出信号
-func helper_emit_signal(what: String):
-	signal_bus.emit_signal(what)
-
 # 切换场景
 # Switch scene
 func switch_scene(new_scene: PackedScene) -> void:
@@ -29,11 +25,18 @@ func switch_scene(new_scene: PackedScene) -> void:
 
 # 信号注册
 func _ready() -> void:
-	signal_bus.start_game.connect(_on_start_game)
-	signal_bus.exit_game.connect(func(): get_tree().quit())
-
-# 开始游戏
-func _on_start_game() -> void:
-	print("INFO: _on_start_game")
-	switch_scene(preload("res://scenes/world/test.tscn"))
-	pass
+	# 转发 Dialogic 信号到 SignalBus
+	Dialogic.signal_event.connect(func(what: String) -> void:
+		signal_bus.emit_signal(what)
+	)
+	
+	# 开始游戏
+	signal_bus.start_game.connect(func() -> void:
+		print("INFO: _on_start_game")
+		switch_scene(preload("res://scenes/world/test.tscn"))
+	)
+	# 退出游戏
+	signal_bus.exit_game.connect(func() -> void:
+		print("INFO: _on_exit_game")
+		get_tree().quit()
+	)

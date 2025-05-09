@@ -4,3 +4,4 @@ welcome.tscn
 	do Game.switch_scene()
 - Exit
 	[signal arg="exit_game"]
+jump 
