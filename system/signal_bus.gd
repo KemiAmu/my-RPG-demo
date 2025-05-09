@@ -12,8 +12,8 @@
 class_name SignalBus
 extends Node
 
-# welcome 页面
-# welcome page
+# 游戏的欢迎界面
+# Game welcome screen
 signal start_new_game()
 signal load_game()
 signal exit_game()
