@@ -19,7 +19,7 @@ extends EntityInterface
 # 物理帧处理
 func _physics_process(delta: float) -> void:
 	if can_move:
-		# TODO XXX 用 Vector2(0, 0) 代表玩家位置
+		# TODO Vector2(0, 0) 代表玩家位置
 		traveling_to(Vector2(0, 0), 1, delta)
 	else:
 		traveling_towards(Vector2(0, 0), 0.5, delta)

@@ -14,6 +14,26 @@ class_name EntityInterface
 
 
 
+# 实体状态
+# Entity State
+enum EntityState { IDLE, MOVE, DASH, JUMP }
+
+# 当前角色状态（来自State枚举）
+# Current state of the character from State enum
+@export var current_state := EntityState.IDLE
+
+# 获取当前实体状态
+# Get current entity state
+func get_current_state() -> EntityState:
+	return current_state
+
+# 设置当前实体状态
+# Set current entity state
+func set_current_state(new_state: EntityState) -> void:
+	current_state = new_state
+
+
+
 # 面向方向更新模式
 # Facing direction update modes
 # TRACK: 4方向移动（上/下/左/右）
@@ -46,23 +66,32 @@ func update_facing_direction(target_direction: Vector2) -> void:
 
 
 
-# 实体状态
-# Entity State
-enum EntityState { IDLE, MOVE, DASH, JUMP }
+# 将实体状态映射到对应的动画名称
+# Maps entity states to their corresponding animation names
+const ENTITY_STATE_MAP := {
+		EntityState.IDLE: "idle",
+		EntityState.MOVE: "move",
+		EntityState.DASH: "dash",
+		EntityState.JUMP: "jump"
+}
 
-# 当前角色状态（来自State枚举）
-# Current state of the character from State enum
-@export var current_state := EntityState.IDLE
+# 将 Vector2 方向映射到对应的字符串名称
+# Maps Vector2 directions to their corresponding string names
+const ENTITY_FACING_MAP := {
+		Vector2.RIGHT: "right",
+		Vector2.LEFT: "left",
+		Vector2.DOWN: "down",
+		Vector2.UP: "up"
+}
 
-# 获取当前实体状态
-# Get current entity state
-func get_current_state() -> EntityState:
-	return current_state
+# 角色动画的 AnimationPlayer 节点引用
+# Reference to the AnimationPlayer node for character animations
+@export var animation_player: AnimationPlayer
 
-# 设置当前实体状态
-# Set current entity state
-func set_current_state(new_state: EntityState) -> void:
-	current_state = new_state
+# 播放动画的函数
+# Function to play an animation
+func play_animation(animation_name: String) -> void:
+		animation_player.play(animation_name)
 
 
 
@@ -83,35 +112,6 @@ func apply_movement(target_direction: Vector2, damping: float, delta) -> void:
 		1 - exp(damping * move_damping * delta)
 	)
 	move_and_slide()
-
-
-
-# 将实体状态映射到对应的动画名称
-# Maps entity states to their corresponding animation names
-const ENTITY_STATE_MAP := {
-	EntityState.IDLE: "idle",
-	EntityState.MOVE: "move",
-	EntityState.DASH: "dash",
-	EntityState.JUMP: "jump"
-}
-
-# 将 Vector2 方向映射到对应的字符串名称
-# Maps Vector2 directions to their corresponding string names
-const ENTITY_FACING_MAP := {
-	Vector2.RIGHT: "right",
-	Vector2.LEFT: "left",
-	Vector2.DOWN: "down",
-	Vector2.UP: "up"
-}
-
-# 角色动画的 AnimationPlayer 节点引用
-# Reference to the AnimationPlayer node for character animations
-@export var animation_player: AnimationPlayer
-
-# 播放动画的函数
-# Function to play an animation
-func play_animation(animation_name: String) -> void:
-	animation_player.play(animation_name)
 
 
 
