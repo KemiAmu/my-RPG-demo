@@ -7,8 +7,48 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# 存档管理器，满足全局动态加载和保存
-# Save manager for global dynamic loading and saving
+# Save Manager 文档
+#
+# SaveManager 类提供了一个集中式的游戏存档数据管理系统。
+# 它允许为游戏的不同部分注册保存/加载回调函数，
+# 处理数据序列化到磁盘的操作，并通过适当的回调执行来管理数据加载。
+#
+# 主要特性:
+# - 用户目录中的持久化数据存储（跨平台）
+# - 通过基于键的注册支持多个独立的存档系统
+# - 数据加载时自动执行回调
+# - 线程安全的文件操作
+#
+# 使用方法:
+# 1. 创建一个 SaveManager 资源（通常作为自动加载的单例）
+# 2. 使用 register() 从不同游戏系统注册保存/加载回调
+# 3. 调用 save() 持久化所有注册的数据
+# 4. 调用 load() 恢复之前保存的数据
+#
+# 注意: 所有回调必须是绑定方法（如果需要可使用 funcref()）
+# 存档文件存储在 Godot 的 user:// 目录下（参见 OS.get_user_data_dir()）
+
+# Save Manager Documentation
+#
+# The SaveManager class provides a centralized system for managing game save data.
+# It allows registration of save/load callbacks for different parts of the game,
+# handles serialization to disk, and manages data loading with proper callback execution.
+#
+# Key Features:
+# - Persistent data storage in user directory (platform-independent)
+# - Support for multiple independent save systems through key-based registration
+# - Automatic callback execution when data is loaded
+# - Thread-safe file operations
+#
+# Usage:
+# 1. Create a SaveManager resource (typically as an autoload singleton)
+# 2. Register save/load callbacks from different game systems using register()
+# 3. Call save() to persist all registered data
+# 4. Call load() to restore previously saved data
+#
+# Note: All callbacks must be bound methods (use funcref() if needed)
+# The save file is stored in Godot's user:// directory (see OS.get_user_data_dir())
+
 class_name SaveManager
 extends Resource
 
