@@ -14,9 +14,9 @@ class_name EntityInterface
 
 # 面向方向更新模式
 # Facing direction update modes
-# TRACK: 4方向移动 (上/下/左/右)
+# TRACK: 4方向移动（上/下/左/右）
 # TRACK: 4-way directional movement (up/down/left/right)
-# HORIZONTAL: 仅水平移动 (左/右)
+# HORIZONTAL: 仅水平移动（左/右）
 # HORIZONTAL: Horizontal-only movement (left/right)
 enum FacingMode { TRACK, HORIZONTAL }
 
@@ -49,13 +49,13 @@ var facing_direction := Vector2.RIGHT
 # 更新面向方向的方法
 # Method to update facing direction
 @export var facing_updater := FacingMode.TRACK
-# 移动速度(像素/秒)
+# 移动速度（像素/秒）
 # Movement speed in pixels per second
 @export var move_speed := 100.0
-# 移动平滑的阻尼系数(负值)
+# 移动平滑的阻尼系数（负值）
 # Damping factor for movement smoothing (negative value)
 @export var move_damping := -20.0
-# 当前角色状态(来自State枚举)
+# 当前角色状态（来自State枚举）
 # Current state of the character from State enum
 @export var current_state := EntityState.IDLE
 # 角色动画的AnimationPlayer节点引用
@@ -82,7 +82,7 @@ func update_facing_direction(target_direction: Vector2) -> void:
 
 # 处理角色移动
 # Handle character movement
-# 注意: 应该在_physics_process(delta)中调用以获得正确的物理帧计时
+# 注意：应该在_physics_process(delta) 中调用以获得正确的物理帧计时
 # Note: Should be called from _physics_process(delta) for proper physics frame timing
 func apply_movement(target_direction: Vector2, damping: float, delta) -> void:
 	velocity = velocity.lerp (
@@ -91,18 +91,18 @@ func apply_movement(target_direction: Vector2, damping: float, delta) -> void:
 	)
 	move_and_slide()
 
-# 向目标方向移动(自动更新面向方向)
+# 向目标方向移动（自动更新面向方向）
 # Move towards target direction (automatically updates facing direction)
-# 注意: 应该在_physics_process(delta)中调用以获得正确的物理帧计时
+# 注意：应该在 _physics_process(delta) 中调用以获得正确的物理帧计时
 # Note: Should be called from _physics_process(delta) for proper physics frame timing
 func traveling_towards(target_direction: Vector2, damping: float, delta) -> void:
 	update_facing_direction(target_direction)
 	play_animation(ENTITY_STATE_MAP[current_state] + "_" + ENTITY_FACING_MAP[facing_direction])
 	apply_movement(target_direction, damping, delta)
 
-# 移动到目标位置(自动更新面向方向)
+# 移动到目标位置（自动更新面向方向）
 # Move to target position (automatically updates facing direction)
-# 注意: 应该在_physics_process(delta)中调用以获得正确的物理帧计时
+# 注意：应该在 _physics_process(delta) 中调用以获得正确的物理帧计时
 # Note: Should be called from _physics_process(delta) for proper physics frame timing
 func traveling_to(target_position: Vector2, damping: float, delta) -> void:
 	traveling_towards((target_position - position), damping, delta)
