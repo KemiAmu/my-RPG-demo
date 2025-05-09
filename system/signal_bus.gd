@@ -14,9 +14,9 @@ extends Node
 
 # 游戏的欢迎界面
 # Game welcome screen
-signal start_new_game()
-signal load_game()
-signal exit_game()
+signal start_new_game
+signal load_game
+signal exit_game
 
 # TODO HACK TEST
 signal battle_triggered(enemies: Array)
