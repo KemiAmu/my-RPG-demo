@@ -22,8 +22,8 @@ func _ready() -> void:
 func _dialogic_event(what: String) -> void:
 	match what:
 		"start new game":
-			Game.signal_event.emit("start_new_game")
+			Game.signal_bus.start_new_game.emit()
 		"load game":
-			Game.signal_event.emit("load_game")
+			Game.signal_bus.load_game.emit()
 		"exit the game":
-			Game.signal_event.emit("exit_game")
+			Game.signal_bus.exit_game.emit()
