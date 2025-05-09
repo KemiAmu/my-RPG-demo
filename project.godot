@@ -13,7 +13,7 @@ config_version=5
 config/name="My RPG Demo"
 run/main_scene="uid://ctj4w3am2a801"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://cwsmgljegfkle"
 
 [autoload]
 

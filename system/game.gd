@@ -16,29 +16,31 @@ var player_manager := PlayerManager.new()
 var signal_bus := SignalBus.new()
 
 var current_scene: Node
+var _default_world := preload("res://scenes/world/overworld.tscn")
 
 func switch_scene(new_scene: PackedScene) -> void:
 	if current_scene:
 		current_scene.queue_free()
 	current_scene = new_scene.instantiate()
-	get_tree().root.add_child(current_scene)
+	get_tree().root.add_child.call_deferred(current_scene)
 
-func _ready():
-	save_manager.register( "game",
+func _init():
+	save_manager.register("game",
 		func() -> Dictionary:
 			return {
 				"current_scene": current_scene.get_scene_file_path()
 			} if current_scene else {},
 
-		func(data: Dictionary) -> void:
+		func(data: Dictionary):
 			if data.has("current_scene"):
-				var scene := load(data["current_scene"]) as PackedScene
-				if scene:
-					switch_scene(scene)
+				call_deferred("_deferred_load_scene", data["current_scene"])
 	)
 
-	if save_manager.load():
-		if not current_scene:
-			switch_scene(preload("res://scenes/world/overworld.tscn"))
-	else:
-		switch_scene(preload("res://scenes/world/overworld.tscn"))
+func _ready():
+	var load_success := save_manager.load()
+
+	if not current_scene:
+		switch_scene(_default_world)
+
+	if not load_success:
+		save_manager.save()

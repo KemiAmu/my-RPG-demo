@@ -16,6 +16,7 @@ signal player_removed(player: PlayerEntity)
 # Player entity management
 var _player: PlayerEntity = null
 var _pending_load_data: Dictionary = {}
+@export var player_scene: PackedScene
 
 #region Persistence
 # 注册玩家数据持久化回调
@@ -32,12 +33,13 @@ func load_player(data: Dictionary) -> void:
 		_apply_player_data(data)
 	else:
 		_pending_load_data = data.duplicate()
+		_spawn_player_from_data()
 
 # 序列化当前玩家状态
 func save_player() -> Dictionary:
 	return {
-		position = _player.position,
-		state = _player.current_state
+		"position": _player.position,
+		"state": _player.current_state
 	} if _player else {}
 
 # 应用存储的玩家数据
@@ -49,6 +51,15 @@ func _apply_player_data(data: Dictionary) -> void:
 #endregion
 
 #region Player Management
+# 动态生成玩家实体
+func _spawn_player_from_data() -> void:
+	if not player_scene or _player:
+		return
+
+	var new_player = player_scene.instantiate()
+	get_tree().current_scene.add_child(new_player)
+	add_player(new_player)
+
 # 添加并初始化玩家实体
 func add_player(player_node: PlayerEntity) -> void:
 	if _player == player_node:
