@@ -1,8 +1,6 @@
-欢迎
-- 新游戏
-	[signal arg="start new game"]
-- 载入存档
-	[signal arg="load game"]
-- 退出游戏
-	[signal arg="exit the game"]
-jump 
+welcome.tscn
+- Play
+	[signal arg="start_game"]
+	do Game.switch_scene()
+- Exit
+	[signal arg="exit_game"]
