@@ -1,0 +1,8 @@
+欢迎
+- 新游戏
+	[signal arg="start new game"]
+- 载入存档
+	[signal arg="load game"]
+- 退出游戏
+	[signal arg="exit the game"]
+jump 

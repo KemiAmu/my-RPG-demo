@@ -58,10 +58,10 @@ func _ready() -> void:
 	await get_tree().process_frame
 	
 	# 优先加载存档场景
-	if save_manager.load():
-		if not current_scene:
-			switch_scene(_default_world)
-	else:
-		# 初始化新游戏
-		switch_scene(_default_world)
-		save_manager.save()
+	# if save_manager.load():
+	# 	if not current_scene:
+	# 		switch_scene(_default_world)
+	# else:
+	# 	# 初始化新游戏
+	# 	switch_scene(_default_world)
+	# 	save_manager.save()

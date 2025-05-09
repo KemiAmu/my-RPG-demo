@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="My RPG Demo"
-run/main_scene="uid://ctj4w3am2a801"
+run/main_scene="uid://cw0h53qgo146c"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="uid://cwsmgljegfkle"
 
@@ -24,7 +24,8 @@ Game="*res://system/game.gd"
 
 directories/dch_directory={}
 directories/dtl_directory={
-"timeline": "res://dialogues/timeline/timeline.dtl"
+"timeline": "res://dialogues/timeline/timeline.dtl",
+"welcome": "res://dialogues/timeline/welcome.dtl"
 }
 layout/style_list=[]
 layout/default_style=""
