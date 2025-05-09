@@ -7,48 +7,83 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# TODO FIXME 结构性问题
-# 玩家逻辑层
-# Player logic layer
+# Player logic layer with serialization support
+class_name PlayerManager
 extends Node
+signal player_added(player: PlayerEntity)
+signal player_removed(player: PlayerEntity)
 
-# Save and load
-# TODO FIXME 零存取，场景动态加载，合适的时机不在这
+# Player entity management
+var _player: PlayerEntity = null
+var _pending_load_data: Dictionary = {}
+
+#region Persistence
+# 注册玩家数据持久化回调
 func _ready():
-	SaveManager.register("player", load_player, save_player)
+	Game.save_manager.register("player", load_player, save_player)
 
+# 注销持久化回调
 func _exit_tree():
-	SaveManager.unregister("player")
+	Game.save_manager.unregister("player")
 
+# 加载玩家数据（立即应用或暂存待用）
 func load_player(data: Dictionary) -> void:
-	if players.size() > 0:
-		var player = players[0]
-		if data.has("position"):
-			player.position = data["position"]
-		if data.has("state"):
-			player.current_state = data["state"]
+	if _player:
+		_apply_player_data(data)
+	else:
+		_pending_load_data = data.duplicate()
 
+# 序列化当前玩家状态
 func save_player() -> Dictionary:
-	var data := {}
-	if players.size() > 0:
-		var player = players[-1]
-		data["position"] = player.position
-		data["state"] = player.current_state
-	return data
+	return {
+		position = _player.position,
+		state = _player.current_state
+	} if _player else {}
 
-# List of player entities
-var players := []
+# 应用存储的玩家数据
+func _apply_player_data(data: Dictionary) -> void:
+	if data.has("position"):
+		_player.position = data["position"]
+	if data.has("state"):
+		_player.state_machine.transition_to(data["state"])
+#endregion
 
+#region Player Management
+# 添加并初始化玩家实体
 func add_player(player_node: PlayerEntity) -> void:
-	if player_node not in players:
-		players.append(player_node)
+	if _player == player_node:
+		return
 
+	if _player:
+		remove_player(_player)
+
+	_player = player_node
+	_player.tree_exited.connect(remove_player.bind(_player))
+
+	if not _pending_load_data.is_empty():
+		_apply_player_data(_pending_load_data)
+		_pending_load_data.clear()
+
+	player_added.emit(_player)
+
+# 移除玩家实体并清理引用
 func remove_player(player_node: PlayerEntity) -> void:
-	if player_node in players:
-		players.erase(player_node)
+	if _player == player_node:
+		_player.tree_exited.disconnect(remove_player)
+		_player = null
+		player_removed.emit(player_node)
+#endregion
 
-# Pass control down
+#region Input Handling
+# 处理玩家实体物理帧更新
 func _physics_process(delta):
-	var input_direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.5)
-	for player in players:
-		player.handle_physics_update(input_direction, delta)
+	if not _player:
+		return
+
+	var input_dir := Input.get_vector(
+		"ui_left", "ui_right", 
+		"ui_up", "ui_down", 
+		0.5
+	)
+	_player.handle_physics_update(input_dir, delta)
+#endregion

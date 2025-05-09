@@ -7,4 +7,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+class_name SignalBus
 extends Node
+
+signal battle_triggered(enemies: Array)

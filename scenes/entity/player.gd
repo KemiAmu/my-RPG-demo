@@ -14,12 +14,12 @@ extends EntityInterface
 
 func _notification(what: int) -> void:
 	if what in [NOTIFICATION_READY, NOTIFICATION_UNPAUSED]:
-		PlayerManager.add_player(self)
+		Game.player_manager.add_player(self)
 	elif what in [NOTIFICATION_EXIT_TREE, NOTIFICATION_PAUSED]:
-		PlayerManager.remove_player(self)
+		Game.player_manager.remove_player(self)
 
 # TODO WONTFIX
-func handle_physics_updat(input_direction: Vector2, delta: float) -> void:
+func handle_physics_update(input_direction: Vector2, delta: float) -> void:
 	# interpret input
 	if input_direction != Vector2.ZERO:
 		current_state = EntityState.MOVE
@@ -28,18 +28,8 @@ func handle_physics_updat(input_direction: Vector2, delta: float) -> void:
 	
 	traveling_towards(input_direction, 1, delta)
 
-# TODO FIXME
+# TODO HACK 遭遇战
 func _on_interaction_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
-		var enemy := body as CharacterBody2D
-		enemy.set_physics_process(false) # 立即停止物理计算
-		if not enemy:
-			printerr("Enemy is null")
-			return
-		# TODO HACK
-		print("触发战斗的敌人：", enemy.name)
-		print("敌人当前场景：", enemy.get_tree().current_scene.name)
-		enemy.hide()
-		enemy.set_process_mode(Node.PROCESS_MODE_DISABLED)
-		#Global.start_battle(enemy)
-		# enemy.queue_free()
+		var enemy := body as EntityInterface
+		Game.signal_bus.emit_signal("battle_triggered", [enemy])
