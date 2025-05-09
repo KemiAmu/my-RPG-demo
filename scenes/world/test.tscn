@@ -5,4 +5,4 @@
 [node name="Test" type="Node"]
 
 [node name="Slime" parent="." instance=ExtResource("1_yokrj")]
-position = Vector2(360, 151)
+position = Vector2(539, 303)

@@ -180,8 +180,8 @@ _data = {
 script = ExtResource("2_vx11t")
 can_move = true
 state_plan = 3
-facing_updater = 1
 current_state = 3
+facing_updater = 1
 move_speed = 50.0
 move_damping = -10.0
 
