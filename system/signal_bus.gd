@@ -7,7 +7,16 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+# 全局信号总线
+# Global signal bus
 class_name SignalBus
 extends Node
 
+# welcome 页面
+# welcome page
+signal start_new_game()
+signal load_game()
+signal exit_game()
+
+# TODO HACK TEST
 signal battle_triggered(enemies: Array)
