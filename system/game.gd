@@ -13,7 +13,7 @@
 # Main game script
 extends Node
 
-# Global var
+# Global variable
 var save_manager := SaveManager.new()
 var player_manager := PlayerManager.new()
 var signal_bus := SignalBus.new()
