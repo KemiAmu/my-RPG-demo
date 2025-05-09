@@ -24,10 +24,12 @@ func switch_scene(new_scene: PackedScene) -> void:
 	pass
 	# TODO
 
+
+
 func _ready() -> void:
 	signal_bus.start_new_game.connect(_on_start_new_game)
 	signal_bus.load_game.connect(_on_load_game)
-	signal_bus.exit_game.connect(_on_exit_game)
+	signal_bus.exit_game.connect(func(): get_tree().quit())
 
 func _on_start_new_game() -> void:
 	# 开始新游戏逻辑
@@ -36,7 +38,3 @@ func _on_start_new_game() -> void:
 func _on_load_game() -> void:
 	# 加载游戏逻辑
 	pass
-
-func _on_exit_game() -> void:
-	# 退出游戏逻辑
-	get_tree().quit()
