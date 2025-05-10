@@ -14,13 +14,21 @@ extends Resource
 
 # 存档文件路径
 # Path to the save file
-var save_path := "user://save"
+var save_path: String
 
-# 构造函数，可自定义存档路径
-# Constructor, allows custom save path
-func _init(custom_path := "") -> void:
-	if not custom_path.is_empty():
-		save_path = custom_path
+# 存储数据的容器，用于同步和持久化保存
+# Container for storing data, used for synchronization and persistent saving
+var data_box: Dictionary
+
+# 构造函数
+# Constructor
+func _init(custom_path := "user://save", data := {}) -> void:
+	save_path = custom_path
+	data_box = data
+
+# Deprecated
+# func duplicate_save(custom_path := "user://save") -> SaveManager:
+# 	return SaveManager.new(custom_path, data_box)
 
 # 保存回调函数
 # Save callbacks
@@ -28,10 +36,6 @@ var save_funcs := {}
 # 加载回调函数
 # Load callbacks
 var load_funcs := {}
-
-# 存储数据的容器，用于同步和持久化保存
-# Container for storing data, used for synchronization and persistent saving
-var data_box := {}
 
 # 为给定键注册新的保存/加载处理程序
 # Register a new save/load handler for a given key

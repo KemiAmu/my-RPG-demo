@@ -21,7 +21,7 @@ var signal_bus := SignalBus.new()
 func switch_scene(new_scene: PackedScene) -> void:
 	get_tree().change_scene_to_packed(new_scene)
 
-# 信号注册
+# 进入节点树
 func _ready() -> void:
 	# 转发 Dialogic 信号到 SignalBus
 	Dialogic.signal_event.connect(func(what: String) -> void:
