@@ -14,8 +14,11 @@ extends Node
 
 # 游戏的欢迎界面
 # Game welcome screen
+@warning_ignore("unused_signal")
 signal start_game
+@warning_ignore("unused_signal")
 signal exit_game
 
 # TODO HACK TEST
+@warning_ignore("unused_signal")
 signal battle_triggered(enemies: Array)

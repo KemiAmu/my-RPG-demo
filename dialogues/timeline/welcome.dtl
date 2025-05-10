@@ -1,7 +1,6 @@
 welcome.tscn
 - Play
 	[signal arg="start_game"]
-	do Game.switch_scene()
 - Exit
 	[signal arg="exit_game"]
 jump 

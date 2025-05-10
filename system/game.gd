@@ -7,8 +7,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# TODO HACK FIXME
-
 # 主游戏脚本
 # Main game script
 extends Node
@@ -31,12 +29,17 @@ func _ready() -> void:
 	)
 	
 	# 开始游戏
-	signal_bus.start_game.connect(func() -> void:
-		print("INFO: _on_start_game")
-		switch_scene(preload("res://scenes/world/test.tscn"))
-	)
+	signal_bus.start_game.connect(start_game)
 	# 退出游戏
 	signal_bus.exit_game.connect(func() -> void:
-		print("INFO: _on_exit_game")
+		print("INFO: signal_bus.exit_game")
 		get_tree().quit()
 	)
+	
+	# 空载存档
+	save_manager.load()
+
+# 开始游戏
+func start_game() -> void:
+	print("INFO: signal_bus.start_game")
+	switch_scene(preload("res://scenes/world/test.tscn"))
