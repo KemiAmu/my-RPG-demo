@@ -48,8 +48,8 @@ func unregister(key: String) -> void:
 	save_funcs.erase(key)
 	load_funcs.erase(key)
 
-# 将所有注册数据保存到文件
-# Save all registered data to file
+# 将 data_box 中所有注册数据保存到文件
+# Save all registered data in data_box to file
 func save() -> bool:
 	for key in save_funcs:
 		data_box[key] = save_funcs[key].call()
@@ -64,8 +64,8 @@ func save() -> bool:
 
 	return true
 
-# 从文件加载所有注册数据
-# Load all registered data from file
+# 从文件加载所有注册数据到 data_box
+# Load all registered data from file into data_box
 func load() -> bool:
 	if not FileAccess.file_exists(save_path):
 		return false
