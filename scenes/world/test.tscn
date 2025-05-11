@@ -4,8 +4,8 @@
 
 [node name="Test" type="Node"]
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="YSort" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="Slime" parent="Node2D" instance=ExtResource("1_yokrj")]
+[node name="Slime" parent="YSort" instance=ExtResource("1_yokrj")]
 position = Vector2(539, 303)

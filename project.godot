@@ -60,10 +60,6 @@ window/size/viewport_height=480
 
 enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 
-[global_group]
-
-enemy=""
-
 [input]
 
 ui_left={
