@@ -176,7 +176,7 @@ _data = {
 &"jump_right": SubResource("Animation_ijiv4")
 }
 
-[node name="Slime" instance=ExtResource("1_vx11t")]
+[node name="Slime" groups=["enemy"] instance=ExtResource("1_vx11t")]
 script = ExtResource("2_vx11t")
 can_move = true
 state_plan = 3
