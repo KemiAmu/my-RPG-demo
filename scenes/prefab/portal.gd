@@ -24,18 +24,12 @@ extends Area2D
 # Radius for pushing entities out of the portal
 @export var push_radius := 50.0
 
+# 当玩家进入传送门
+# When the player enters the portal
 func _on_player_entered(body: Node2D) -> void:
-	# 获取玩家相对于传送门原点的位置（本地坐标）
-	# Get player's position relative to portal origin (local coordinates)
-	var relative_pos := body.global_position - global_position
-	
 	# 获取玩家相对于传送门的方向（弧度）
 	# Get player's direction relative to portal (in radians)
-	var direction_angle := relative_pos.angle()
-
-	# 在切换场景前发射带有玩家位置数据的信号
-	# Emit signal with player's position data before changing scene
-	emit_signal("player_entered_portal", relative_pos, direction_angle)
+	var direction_angle := (body.global_position - global_position).angle()
 
 	# 切换到下一个场景
 	# Change to the next scene
@@ -48,8 +42,8 @@ func _on_player_entered(body: Node2D) -> void:
 		if portal.portal_group != portal_group:
 			portals.erase(portal)
 
-	# 获取同组传送门的中心位置
-	# Get the center position of portals in the same group
+	# 获取同组传送门的几何中心位置
+	# Calculate the geometric center position of portals in the same group
 	var group_center := Vector2.ZERO
 	for portal in portals:
 		group_center += portal.global_position
@@ -61,12 +55,7 @@ func _on_player_entered(body: Node2D) -> void:
 	var smallest_angle_diff := INF
 
 	for portal in portals:
-		# 计算传送门相对于群组中心的角度
-		# Calculate portal's angle relative to group center
 		var portal_angle: float = (portal.global_position - group_center).angle()
-
-		# 计算角度差（考虑2π环绕）
-		# Calculate angle difference (accounting for 2π wrap-around)
 		var angle_diff: float = abs(wrapf(direction_angle - portal_angle, -PI, PI))
 
 		if angle_diff < smallest_angle_diff:
