@@ -24,25 +24,60 @@ extends Area2D
 # Radius for pushing entities out of the portal
 @export var push_radius := 50.0
 
-func _ready() -> void:
-	Game.portal_manager.register(self)
-
-func _exit_tree() -> void:
-	Game.portal_manager.unregister(self)
-
 func _on_player_entered(body: Node2D) -> void:
+	# 获取玩家相对于传送门原点的位置（本地坐标）
 	# Get player's position relative to portal origin (local coordinates)
 	var relative_pos := body.global_position - global_position
+	
+	# 获取玩家相对于传送门的方向（弧度）
 	# Get player's direction relative to portal (in radians)
 	var direction_angle := relative_pos.angle()
-	# Get player's absolute position (global coordinates)
-	var absolute_pos := body.global_position
 
-	print("Player entered portal at:")
-	print("Relative position: ", relative_pos)
-	print("Absolute position: ", absolute_pos)
-	print("Direction angle: ", direction_angle)
-	
-	Game.signal_bus.portal_triggered.emit(
-		(body.global_position - global_position).angle()
-	)
+	# 在切换场景前发射带有玩家位置数据的信号
+	# Emit signal with player's position data before changing scene
+	emit_signal("player_entered_portal", relative_pos, direction_angle)
+
+	# 切换到下一个场景
+	# Change to the next scene
+	get_tree().change_scene_to_packed(next_scene)
+
+	# 定位新场景中属于同一组的所有传送门节点
+	# Locate all portal nodes in the new scene that belong to the same group
+	var portals := get_tree().get_nodes_in_group("portal")
+	for portal in portals:
+		if portal.portal_group != portal_group:
+			portals.erase(portal)
+
+	# 获取同组传送门的中心位置
+	# Get the center position of portals in the same group
+	var group_center := Vector2.ZERO
+	for portal in portals:
+		group_center += portal.global_position
+	group_center /= max(portals.size(), 1)
+
+	# 找到与进入角度最匹配的传送门
+	# Find the portal that best matches the entry angle
+	var best_match: Portal = null
+	var smallest_angle_diff := INF
+
+	for portal in portals:
+		# 计算传送门相对于群组中心的角度
+		# Calculate portal's angle relative to group center
+		var portal_angle: float = (portal.global_position - group_center).angle()
+
+		# 计算角度差（考虑2π环绕）
+		# Calculate angle difference (accounting for 2π wrap-around)
+		var angle_diff: float = abs(wrapf(direction_angle - portal_angle, -PI, PI))
+
+		if angle_diff < smallest_angle_diff:
+			smallest_angle_diff = angle_diff
+			best_match = portal
+
+	if best_match != null:
+		# 计算玩家在目标传送门的位置偏移
+		# Calculate player's position offset relative to target portal
+		var exit_offset := Vector2(push_radius, 0).rotated(direction_angle + PI)
+
+		# 设置玩家在新传送门的位置
+		# Set player's position at the new portal
+		body.global_position = best_match.global_position + exit_offset

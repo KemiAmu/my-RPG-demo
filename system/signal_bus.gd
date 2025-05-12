@@ -19,6 +19,7 @@ signal start_game
 @warning_ignore("unused_signal")
 signal exit_game
 
+# TODO
 # 传送门触发
 # Portal trigger
 @warning_ignore("unused_signal")
