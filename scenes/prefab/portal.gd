@@ -7,6 +7,8 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+# TODO 理论上应该使用点状位置而不是碰撞面积作为传送判定，以避免碰撞面积差异。
+
 # 传送门实体逻辑
 # Portal entity logic
 class_name Portal
@@ -67,6 +69,6 @@ func _on_player_entered(body: Node2D) -> void:
 		# Calculate player's position offset relative to target portal
 		var exit_offset := Vector2(push_radius, 0).rotated(direction_angle + PI)
 
-		# 设置玩家在新传送门的位置
-		# Set player's position at the new portal
-		body.global_position = best_match.global_position + exit_offset
+		# 设置玩家位置到目标传送门并应用偏移
+		# Set player position to target portal and apply offset
+		Game.signal_bus.player_teleported.emit(best_match, exit_offset)

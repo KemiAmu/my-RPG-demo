@@ -19,11 +19,10 @@ signal start_game
 @warning_ignore("unused_signal")
 signal exit_game
 
-# TODO
-# 传送门触发
-# Portal trigger
+# 传送门
+# Portal
 @warning_ignore("unused_signal")
-signal portal_triggered(destination: String)
+signal player_teleported(target: Portal, offset: Vector2)
 
 # TODO HACK TEST
 @warning_ignore("unused_signal")
