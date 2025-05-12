@@ -60,6 +60,11 @@ window/size/viewport_height=480
 
 enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 
+[global_group]
+
+enemy=""
+portal=""
+
 [input]
 
 ui_left={
@@ -109,6 +114,6 @@ dialogic_default_action={
 2d_physics/layer_1="Undefined"
 2d_physics/layer_2="World Collision"
 2d_physics/layer_3="Entity Collision [HACK]"
-2d_physics/layer_5="Player [HACK]"
+2d_physics/layer_5="Player"
 2d_physics/layer_6="Passive Mobs [DEPRECATED]"
 2d_physics/layer_7="Hostile Mobs [DEPRECATED]"

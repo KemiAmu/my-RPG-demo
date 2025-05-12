@@ -15,6 +15,7 @@ extends Node
 var save_manager := SaveManager.new()
 var player_manager := PlayerManager.new()
 var signal_bus := SignalBus.new()
+var portal_manager := PortalManager.new()
 
 # 切换场景
 # Switch scene

@@ -19,6 +19,11 @@ signal start_game
 @warning_ignore("unused_signal")
 signal exit_game
 
+# 传送门触发
+# Portal trigger
+@warning_ignore("unused_signal")
+signal portal_triggered(destination: String)
+
 # TODO HACK TEST
 @warning_ignore("unused_signal")
 signal battle_triggered(enemies: Array)
