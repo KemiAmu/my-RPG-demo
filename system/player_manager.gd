@@ -89,6 +89,23 @@ func remove_player(player_node: PlayerEntity) -> void:
 		_player.tree_exited.disconnect(remove_player)
 		_player = null
 		player_removed.emit(player_node)
+
+# 传送玩家到指定锚点位置
+func teleport_player(anchor: Portal, offset: Vector2) -> void:
+	if not _player:
+		return
+
+	# 保存当前状态并移除旧玩家实体
+	var saved_state = save_player()
+	remove_player(_player)
+
+	# 创建新玩家实例并应用位置偏移
+	_pending_load_data = saved_state
+	if _pending_load_data.has("position"):
+		_pending_load_data["position"] = anchor.position + offset
+
+	_spawn_player_from_data()
+	teleported.emit(anchor, offset)
 #endregion
 
 #region Input Handling
