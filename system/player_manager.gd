@@ -9,8 +9,8 @@
 
 # TODO HACK FIXME 这是一个临时实现 AI 乱写的（
 
-# 玩家管理器类，负责玩家实体的生命周期和状态管理
-# Player logic layer with serialization support
+# 玩家管理器类，负责动态调控玩家实体
+# Player manager class, responsible for dynamic player entity control
 class_name PlayerManager
 extends Node
 
