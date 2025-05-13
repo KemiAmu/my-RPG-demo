@@ -35,7 +35,9 @@ func _on_player_entered(body: Node2D) -> void:
 
 	# 切换到下一个场景
 	# Change to the next scene
-	get_tree().change_scene_to_packed(next_scene)
+	if next_scene:
+		# Game.signal_bus.scene_change_requested.emit(next_scene)
+		Game.switch_scene.emit(next_scene)
 
 	# 定位新场景中属于同一组的所有传送门节点
 	# Locate all portal nodes in the new scene that belong to the same group
@@ -71,4 +73,4 @@ func _on_player_entered(body: Node2D) -> void:
 
 		# 设置玩家位置到目标传送门并应用偏移
 		# Set player position to target portal and apply offset
-		Game.signal_bus.player_teleported.emit(best_match, exit_offset)
+		Game.player_manager.teleported.emit(best_match, exit_offset)

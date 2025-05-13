@@ -19,6 +19,9 @@ signal start_game
 @warning_ignore("unused_signal")
 signal exit_game
 
+# TODO
+signal scene_change_requested(next_scene: PackedScene)
+
 # 传送门
 # Portal
 @warning_ignore("unused_signal")

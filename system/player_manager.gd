@@ -17,6 +17,8 @@ extends Node
 signal player_added(player: PlayerEntity)
 signal player_removed(player: PlayerEntity)
 
+signal teleported(anchor: Portal, offset: Vector2)
+
 # Player entity management
 var _player: PlayerEntity = null
 var _pending_load_data := {}
