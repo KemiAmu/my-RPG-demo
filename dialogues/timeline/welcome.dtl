@@ -3,4 +3,3 @@ welcome.tscn
 	[signal arg="start_game"]
 - Exit
 	[signal arg="exit_game"]
-jump 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c5uhx3tboi2l8"]
+[gd_scene load_steps=3 format=3 uid="uid://c5uhx3tboi2l8"]
 
 [ext_resource type="PackedScene" uid="uid://cihf6dxqga20e" path="res://scenes/entity/slime.tscn" id="1_yokrj"]
+[ext_resource type="PackedScene" uid="uid://drorsm32hevne" path="res://scenes/entity/player.tscn" id="2_ujbsv"]
 
 [node name="Test" type="Node"]
 
@@ -9,3 +10,6 @@ y_sort_enabled = true
 
 [node name="Slime" parent="YSort" instance=ExtResource("1_yokrj")]
 position = Vector2(539, 303)
+
+[node name="Player" parent="YSort" instance=ExtResource("2_ujbsv")]
+position = Vector2(468, 253)

@@ -7,22 +7,81 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# TODO HACK FIXME 这是一个临时实现 AI 乱写的（
-
 # 玩家管理器类，负责动态调控玩家实体
 # Player manager class, responsible for dynamic player entity control
 class_name PlayerManager
 extends Node
 
+# 玩家基础数据和容器
+# Player base data and containers
+var _player: PlayerEntity
+var _player_data_box := {}
+var player_scene := preload("res://scenes/entity/player.tscn")
+
+# 节点生命周期回调
+# Node lifecycle callbacks
+func _ready():
+	Game.save_manager.register("player", load_player, save_player)
+
+func _exit_tree():
+	Game.save_manager.unregister("player")
+
+# TODO WONTFIX HACK 空集/默认值 未预料的行为
+
+# 玩家数据序列化
+# Player data serialization
+func load_player(data: Dictionary) -> void:
+	_player_data_box = data.duplicate()
+	_apply_player_data(_player_data_box)
+
+func save_player() -> Dictionary:
+	return {
+		"position": _player.position
+	} if _player else {}
+
+
+
+
+
+
+
+
+
+
+
+
+# ############################## 以下内容全部删掉 ##############################
+# ############################## 我正在做重构相关 ##############################
+
+
+
+
+func _apply_player_data(data: Dictionary) -> void:
+	if data.has("position"):
+		_player.position = data["position"]
+	if data.has("state"):
+		_player.state_machine.transition_to(data["state"])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# TODO HACK FIXME 这是一个临时实现 AI 乱写的（
+
 signal player_added(player: PlayerEntity)
 signal player_removed(player: PlayerEntity)
 
 signal teleported(anchor: Portal, offset: Vector2)
-
-# Player entity management
-var _player: PlayerEntity = null
-var _pending_load_data := {}
-var player_scene := preload("res://scenes/entity/player.tscn")
 
 #region Persistence
 # 注册玩家数据持久化回调
