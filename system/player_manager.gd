@@ -9,8 +9,11 @@
 
 # 玩家管理器类，负责动态调控玩家实体
 # Player manager class, responsible for dynamic player entity control
+# TODO: AI-generated code - pending review
 class_name PlayerManager
 extends Node
+
+
 
 # 玩家实体节点
 # Player entity node
@@ -19,18 +22,10 @@ var _player: PlayerEntity
 # 玩家管理器维护的中间层数据
 # Intermediate layer data maintained by player manager
 var _intermediate_data := {
-	"position": Vector2.ZERO
-}
+	"position": Vector2.ZERO }
 
-# TODO HACK WONTFIX 迁移至 Intermediate data
-# 玩家实体场景资源
-# Player entity scene resource
-var player_scene := preload("res://scenes/entity/player.tscn")
-
-
-
-# 节点生命周期回调
-# Node lifecycle callbacks
+# 生命周期回调
+# Lifecycle callbacks
 func _ready():
 	Game.save_manager.register("player", load_player, save_player)
 
@@ -39,35 +34,57 @@ func _exit_tree():
 
 # 玩家数据序列化
 # Player data serialization
+# TODO HACK WONTFIX: 我知道这很烂
 func load_player(data: Dictionary) -> void:
 	_intermediate_data = data.duplicate()
 	_apply_player_data(_intermediate_data)
 
 func save_player() -> Dictionary:
+	if _player:
+		_intermediate_data["position"] = _player.position
 	return _intermediate_data.duplicate()
 
-
-
-
-
-
-
-
-
-
-
-
-# ############################## 以下内容全部删掉 ##############################
-# ############################## 我正在做重构相关 ##############################
-
-
-
-
+# 应用玩家数据
+# Apply player datas
 func _apply_player_data(data: Dictionary) -> void:
-	if data.has("position"):
-		_player.position = data["position"]
-	if data.has("state"):
-		_player.state_machine.transition_to(data["state"])
+	if not _player: return
+	_player.position = data.get("position", _player.position)
+
+
+
+# 玩家实体场景资源
+# Player entity scene resource
+# TODO HACK WONTFIX: 迁移至 Intermediate data
+var player_scene := preload("res://scenes/entity/player.tscn")
+
+# 传送玩家到指定锚点位置
+# Teleports player to specified anchor position with offset
+# TODO HACK XXX: 为传送门作出妥协
+func teleport_player(anchor: Node, offset: Vector2) -> void:
+	if not _player: _player = _spawn_player()
+	_intermediate_data["position"] = anchor + offset
+	_apply_player_data(_intermediate_data)
+
+# 生成玩家实体实例并添加到场景中
+# Spawn player entity instance and add to scene
+# TODO HACK XXX: 假定节点树结构
+func _spawn_player() -> PlayerEntity:
+	var new_player := player_scene.instantiate() as PlayerEntity
+	get_tree().current_scene.get_node("EntityLayer").add_child(new_player)
+	return new_player
+
+
+
+# 处理玩家实体物理帧更新
+# Handle player entity physics frame updates
+# TODO HACK XXX: 结构性技术债
+func _physics_process(delta):
+	if not _player: return
+
+	var input_dir := Input.get_vector(
+		"ui_left", "ui_right", 
+		"ui_up"  , "ui_down" , 0.5 )
+	_player.handle_physics_update(input_dir, delta)
 
 
 
@@ -78,12 +95,7 @@ func _apply_player_data(data: Dictionary) -> void:
 
 
 
-
-
-
-
-
-# TODO HACK FIXME 这是一个临时实现 AI 乱写的（
+# ############################## 重构并删掉以下内容 ##############################
 
 signal player_added(player: PlayerEntity)
 signal player_removed(player: PlayerEntity)
@@ -157,7 +169,7 @@ func remove_player(player_node: PlayerEntity) -> void:
 		player_removed.emit(player_node)
 
 # 传送玩家到指定锚点位置
-func teleport_player(anchor: Portal, offset: Vector2) -> void:
+func teleport_player(anchor: Node, offset: Vector2) -> void:
 	if not _player:
 		return
 
