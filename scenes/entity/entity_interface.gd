@@ -108,7 +108,7 @@ func play_animation(animation_name: String) -> void:
 # 注意：应该在_physics_process(delta) 中调用以获得正确的物理帧计时
 # Note: Should be called from _physics_process(delta) for proper physics frame timing
 func apply_movement(target_direction: Vector2, damping: float, delta) -> void:
-	velocity = velocity.lerp (
+	velocity = velocity.lerp(
 		target_direction.normalized() * move_speed,
 		1 - exp(damping * move_damping * delta)
 	)
@@ -120,8 +120,10 @@ func apply_movement(target_direction: Vector2, damping: float, delta) -> void:
 # Note: Should be called from _physics_process(delta) for proper physics frame timing
 func traveling_towards(target_direction: Vector2, damping: float, delta) -> void:
 	update_facing_direction(target_direction)
-	play_animation(ENTITY_STATE_MAP[current_state]
-		+ "_" + ENTITY_FACING_MAP[facing_direction])
+	play_animation(
+		ENTITY_STATE_MAP[current_state]
+		+ "_" + ENTITY_FACING_MAP[facing_direction]
+	)
 	apply_movement(target_direction, damping, delta)
 
 # 移动到目标位置（自动更新面向方向）
