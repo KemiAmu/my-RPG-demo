@@ -16,13 +16,13 @@ extends EntityInterface
 # Handle engine notifications
 func _notification(what: int) -> void:
 	if what in [NOTIFICATION_READY, NOTIFICATION_UNPAUSED]:
-		Game.player_manager.add_player(self)
+		Game.player_manager.player_ready.emit(self)
 	elif what in [NOTIFICATION_EXIT_TREE, NOTIFICATION_PAUSED]:
-		Game.player_manager.remove_player(self)
+		Game.player_manager.player_unready.emit(self)
 
-# TODO WONTFIX
 # 处理物理更新
 # Handle physics update
+# TODO WONTFIX: 结构性问题
 func handle_physics_update(input_direction: Vector2, delta: float) -> void:
 	# interpret input
 	if input_direction != Vector2.ZERO:
@@ -32,9 +32,9 @@ func handle_physics_update(input_direction: Vector2, delta: float) -> void:
 
 	traveling_towards(input_direction, 1, delta)
 
-# TODO HACK 遭遇战
 # 交互区域进入处理
 # Interaction area body entered handler
+# TODO HACK 遭遇战
 func _on_interaction_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
 		var enemy := body as EntityInterface

@@ -27,21 +27,22 @@ var _intermediate_data := {
 
 # 玩家实体生命周期信号
 # Player entity lifecycle signals
-signal on_player_ready(node: PlayerEntity)
-signal on_player_exit_tree(node: PlayerEntity)
+# TODO HACK: 用于兼容和阻断异常
+signal player_ready(node: PlayerEntity)
+signal player_unready(node: PlayerEntity)
 
-func _on_player_ready(node: PlayerEntity) -> void:
+func _player_ready(node: PlayerEntity) -> void:
 	_player = node
 
-func _on_player_exit_tree(node: PlayerEntity) -> void:
+func _player_unready(node: PlayerEntity) -> void:
 	if _player == node: _player = null
 
 # 生命周期回调
 # Lifecycle callbacks
 func _ready():
 	Game.save_manager.register("player", load_player, save_player)
-	on_player_ready.connect(_on_player_ready)
-	on_player_exit_tree.connect(_on_player_exit_tree)
+	player_ready.connect(_player_ready)
+	player_unready.connect(_player_unready)
 
 func _exit_tree():
 	Game.save_manager.unregister("player")
