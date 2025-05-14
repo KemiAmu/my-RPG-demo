@@ -61,7 +61,8 @@ func set_facing_direction(target_direction: Vector2) -> void:
 # 根据目标方向和当前面向更新方法更新面向方向
 # Updates facing direction based on target direction and current facing updater method
 func update_facing_direction(target_direction: Vector2) -> void:
-	if target_direction != Vector2.ZERO:
+	if target_direction != Vector2.ZERO \
+	if facing_updater == FacingMode.TRACK else target_direction.x != 0.0:
 		set_facing_direction(target_direction)
 
 
@@ -120,8 +121,7 @@ func apply_movement(target_direction: Vector2, damping: float, delta) -> void:
 func traveling_towards(target_direction: Vector2, damping: float, delta) -> void:
 	update_facing_direction(target_direction)
 	play_animation(ENTITY_STATE_MAP[current_state]
-		+ "_"
-		+ ENTITY_FACING_MAP[facing_direction])
+		+ "_" + ENTITY_FACING_MAP[facing_direction])
 	apply_movement(target_direction, damping, delta)
 
 # 移动到目标位置（自动更新面向方向）
