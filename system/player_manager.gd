@@ -16,10 +16,13 @@ extends Node
 # Player entity node
 var _player: PlayerEntity
 
-# 玩家管理器维护的数据
-# Data managed by player manager
-var _player_data := {}
+# 玩家管理器维护的中间层数据
+# Intermediate layer data maintained by player manager
+var _intermediate_data := {
+	"position": Vector2.ZERO
+}
 
+# TODO HACK WONTFIX 迁移至 Intermediate data
 # 玩家实体场景资源
 # Player entity scene resource
 var player_scene := preload("res://scenes/entity/player.tscn")
@@ -34,18 +37,14 @@ func _ready():
 func _exit_tree():
 	Game.save_manager.unregister("player")
 
-# TODO WONTFIX HACK 空集/默认值 未预料的行为
-
 # 玩家数据序列化
 # Player data serialization
 func load_player(data: Dictionary) -> void:
-	_player_data_box = data.duplicate()
-	_apply_player_data(_player_data_box)
+	_intermediate_data = data.duplicate()
+	_apply_player_data(_intermediate_data)
 
 func save_player() -> Dictionary:
-	return {
-		"position": _player.position
-	} if _player else {}
+	return _intermediate_data.duplicate()
 
 
 
