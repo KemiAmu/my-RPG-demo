@@ -12,11 +12,19 @@
 class_name PlayerManager
 extends Node
 
-# 玩家基础数据和容器
-# Player base data and containers
+# 玩家实体节点
+# Player entity node
 var _player: PlayerEntity
-var _player_data_box := {}
+
+# 玩家管理器维护的数据
+# Data managed by player manager
+var _player_data := {}
+
+# 玩家实体场景资源
+# Player entity scene resource
 var player_scene := preload("res://scenes/entity/player.tscn")
+
+
 
 # 节点生命周期回调
 # Node lifecycle callbacks
