@@ -87,14 +87,3 @@ func _spawn_player() -> PlayerEntity:
 	var new_player := player_scene.instantiate() as PlayerEntity
 	get_tree().current_scene.get_node("EntityLayer").add_child(new_player)
 	return new_player
-
-# 处理玩家实体物理帧更新
-# Handle player entity physics frame updates
-# TODO HACK XXX: 结构性技术债
-func _physics_process(delta):
-	if not _player: return
-
-	var input_dir := Input.get_vector(
-		"ui_left", "ui_right", 
-		"ui_up"  , "ui_down" , 0.5 )
-	_player.handle_physics_update(input_dir, delta)

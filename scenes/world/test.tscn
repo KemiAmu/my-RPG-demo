@@ -5,11 +5,10 @@
 
 [node name="Test" type="Node"]
 
-[node name="YSort" type="Node2D" parent="."]
-y_sort_enabled = true
+[node name="EntitySpawn" type="Marker2D" parent="."]
 
-[node name="Slime" parent="YSort" instance=ExtResource("1_yokrj")]
+[node name="Slime" parent="EntitySpawn" instance=ExtResource("1_yokrj")]
 position = Vector2(539, 303)
 
-[node name="Player" parent="YSort" instance=ExtResource("2_ujbsv")]
+[node name="Player" parent="EntitySpawn" instance=ExtResource("2_ujbsv")]
 position = Vector2(468, 253)

@@ -23,12 +23,13 @@ func _notification(what: int) -> void:
 # 处理物理更新
 # Handle physics update
 # TODO WONTFIX: 结构性问题
-func handle_physics_update(input_direction: Vector2, delta: float) -> void:
-	# interpret input
-	if input_direction != Vector2.ZERO:
-		current_state = EntityState.MOVE
-	else:
-		current_state = EntityState.IDLE
+func _physics_process(delta: float) -> void:
+	var input_direction := Input.get_vector(
+		"ui_left", "ui_right", 
+		"ui_up"  , "ui_down" , 0.5 )
+	
+	current_state = EntityState.IDLE \
+	if input_direction == Vector2.ZERO else EntityState.MOVE
 
 	traveling_towards(input_direction, 1, delta)
 
