@@ -76,7 +76,7 @@ var player_scene := preload("res://scenes/entity/player.tscn")
 # TODO HACK XXX: 为传送门作出妥协
 func teleport_player(anchor: Node, offset: Vector2) -> void:
 	if not _player: _player = _spawn_player()
-	_intermediate_data["position"] = anchor + offset
+	_intermediate_data["position"] = anchor.position + offset
 	_apply_player_data(_intermediate_data)
 
 # 生成玩家实体实例并添加到场景中
