@@ -9,6 +9,9 @@
 
 # TODO 理论上应该使用点状位置而不是碰撞面积作为传送判定，以避免碰撞面积差异。
 
+# TODO FIXME: 起始传送门不应当记入目标传送门群组
+# TODO FIXME: 场景切换问题
+
 # 传送门实体逻辑
 # Portal entity logic
 class_name Portal
@@ -29,6 +32,8 @@ extends Area2D
 # 当玩家进入传送门
 # When the player enters the portal
 func _on_player_entered(body: Node2D) -> void:
+	print(" Info: Player entered portal %s (group: %s)" % [name, portal_group])
+	
 	# 获取玩家相对于传送门的方向（弧度）
 	# Get player's direction relative to portal (in radians)
 	var direction_angle := (body.global_position - global_position).angle()
@@ -73,4 +78,4 @@ func _on_player_entered(body: Node2D) -> void:
 
 		# 设置玩家位置到目标传送门并应用偏移
 		# Set player position to target portal and apply offset
-		Game.player_manager.teleported.emit(best_match, exit_offset)
+		Game.player_manager.teleport_player.emit(best_match, exit_offset)

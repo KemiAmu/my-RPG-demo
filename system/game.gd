@@ -24,7 +24,7 @@ func _ready() -> void:
 	# 切换场景
 	# Switch scene
 	switch_scene.connect(func(new_scene: PackedScene) -> void:
-			get_tree().change_scene_to_packed(new_scene)
+		get_tree().call_deferred("change_scene_to_packed", new_scene)
 	)
 	
 	
@@ -36,12 +36,12 @@ func _ready() -> void:
 	
 	# 开始游戏
 	signal_bus.start_game.connect(func() -> void:
-		print("INFO: signal_bus.start_game")
+		print(" Info: signal_bus.start_game")
 		switch_scene.emit(preload("res://scenes/world/test.tscn"))
 	)
 	# 退出游戏
 	signal_bus.exit_game.connect(func() -> void:
-		print("INFO: signal_bus.exit_game")
+		print(" Info: signal_bus.exit_game")
 		get_tree().quit()
 	)
 	

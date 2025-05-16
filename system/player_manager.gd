@@ -13,8 +13,6 @@
 class_name PlayerManager
 extends Node
 
-
-
 # 玩家实体节点
 # Player entity node
 # TODO HACK WONTFIX: 弱连接，可能无效
@@ -22,8 +20,12 @@ var _player: PlayerEntity
 
 # 玩家管理器维护的中间层数据
 # Intermediate layer data maintained by player manager
-var _intermediate_data := {
-	"position": Vector2.ZERO }
+var _intermediate_data := { "position": Vector2.ZERO }
+
+# 玩家实体场景资源
+# Player entity scene resource
+# TODO HACK WONTFIX: 迁移至 Intermediate data
+var player_scene := preload("res://scenes/entity/player.tscn")
 
 # 玩家实体生命周期信号
 # Player entity lifecycle signals
@@ -31,11 +33,9 @@ var _intermediate_data := {
 signal player_ready(node: PlayerEntity)
 signal player_unready(node: PlayerEntity)
 
-func _player_ready(node: PlayerEntity) -> void:
-	_player = node
-
-func _player_unready(node: PlayerEntity) -> void:
-	if _player == node: _player = null
+# 玩家传送信号
+# Player teleportation signal
+signal teleport_player(anchor: Node, offset: Vector2)
 
 # 生命周期回调
 # Lifecycle callbacks
@@ -43,9 +43,16 @@ func _ready():
 	Game.save_manager.register("player", load_player, save_player)
 	player_ready.connect(_player_ready)
 	player_unready.connect(_player_unready)
+	teleport_player.connect(_teleport_player)
 
 func _exit_tree():
 	Game.save_manager.unregister("player")
+
+func _player_ready(node: PlayerEntity) -> void:
+	_player = node
+
+func _player_unready(node: PlayerEntity) -> void:
+	if _player == node: _player = null
 
 # 玩家数据序列化
 # Player data serialization
@@ -65,17 +72,10 @@ func _apply_player_data(data: Dictionary) -> void:
 	if not _player: return
 	_player.position = data.get("position", _player.position)
 
-
-
-# 玩家实体场景资源
-# Player entity scene resource
-# TODO HACK WONTFIX: 迁移至 Intermediate data
-var player_scene := preload("res://scenes/entity/player.tscn")
-
 # 传送玩家到指定锚点位置
 # Teleports player to specified anchor position with offset
 # TODO HACK XXX: 为传送门作出妥协
-func teleport_player(anchor: Node, offset: Vector2) -> void:
+func _teleport_player(anchor: Node, offset: Vector2) -> void:
 	if not _player: _player = _spawn_player()
 	_intermediate_data["position"] = anchor.position + offset
 	_apply_player_data(_intermediate_data)
