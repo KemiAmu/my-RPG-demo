@@ -44,26 +44,27 @@ func _on_player_entered(body: Node2D) -> void:
 
 	# 定位新场景中属于同一组的所有传送门节点
 	# Locate all portal nodes in the new scene that belong to the same group
-	var portals := get_tree().get_nodes_in_group("portal")
-	for portal in portals:
+	var target_portals := get_tree().get_nodes_in_group("portal")
+	target_portals.erase(self)
+	for portal in target_portals:
 		if portal.portal_group != portal_group:
-			portals.erase(portal)
+			target_portals.erase(portal)
 
-	print(" Info: Found %d portals in group '%s'" % [portals.size(), portal_group])
+	print(" Info: Found %d portals in group '%s'" % [target_portals.size(), portal_group])
 
 	# 获取同组传送门的几何中心位置
 	# Calculate the geometric center position of portals in the same group
 	var group_center := Vector2.ZERO
-	for portal in portals:
+	for portal in target_portals:
 		group_center += portal.global_position
-	group_center /= max(portals.size(), 1)
+	group_center /= max(target_portals.size(), 1)
 
 	# 找到与进入角度最匹配的传送门
 	# Find the portal that best matches the entry angle
 	var best_match: Portal = null
 	var smallest_angle_diff := INF
 
-	for portal in portals:
+	for portal in target_portals:
 		var portal_angle: float = (portal.global_position - group_center).angle()
 		var angle_diff: float = abs(wrapf(direction_angle - portal_angle, -PI, PI))
 
