@@ -26,10 +26,6 @@ func _init(custom_path := "user://save", data := {}) -> void:
 	save_path = custom_path
 	data_box = data
 
-# Deprecated
-# func duplicate_save(custom_path := "user://save") -> SaveManager:
-# 	return SaveManager.new(custom_path, data_box)
-
 # 保存回调函数
 # Save callbacks
 var save_funcs := {}

@@ -15,15 +15,30 @@ radius = 54.0093
 position = Vector2(539, 303)
 
 [node name="Player" parent="EntitySpawn" instance=ExtResource("2_ujbsv")]
-position = Vector2(468, 253)
+position = Vector2(468, 200)
 
 [node name="Portal" parent="EntitySpawn" instance=ExtResource("3_37g75")]
-position = Vector2(591, 184)
+position = Vector2(591, 200)
+portal_group = "test"
+push_radius = 30.0
+
+[node name="Portal3" parent="EntitySpawn" instance=ExtResource("3_37g75")]
+position = Vector2(547, 171)
+portal_group = "test"
+push_radius = 30.0
+
+[node name="Portal4" parent="EntitySpawn" instance=ExtResource("3_37g75")]
+position = Vector2(502, 197)
+portal_group = "test"
+push_radius = 30.0
+
+[node name="Portal5" parent="EntitySpawn" instance=ExtResource("3_37g75")]
+position = Vector2(545, 233)
 portal_group = "test"
 push_radius = 30.0
 
 [node name="Portal2" parent="EntitySpawn" instance=ExtResource("3_37g75")]
-position = Vector2(242, 153)
+position = Vector2(242, 200)
 portal_group = "test"
 push_radius = 80.0
 
@@ -31,4 +46,7 @@ push_radius = 80.0
 shape = SubResource("CircleShape2D_37g75")
 
 [editable path="EntitySpawn/Portal"]
+[editable path="EntitySpawn/Portal3"]
+[editable path="EntitySpawn/Portal4"]
+[editable path="EntitySpawn/Portal5"]
 [editable path="EntitySpawn/Portal2"]

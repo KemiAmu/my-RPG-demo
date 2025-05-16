@@ -9,7 +9,6 @@
 
 # TODO 理论上应该使用点状位置而不是碰撞面积作为传送判定，以避免碰撞面积差异。
 
-# TODO FIXME: 起始传送门不应当记入目标传送门群组
 # TODO FIXME: 场景切换问题
 
 # 传送门实体逻辑
@@ -50,7 +49,7 @@ func _on_player_entered(body: Node2D) -> void:
 		if portal.portal_group != portal_group:
 			target_portals.erase(portal)
 
-	print(" Info: Found %d portals in group '%s'" % [target_portals.size(), portal_group])
+	print(" Info: Found %d target portals in group '%s'" % [target_portals.size(), portal_group])
 
 	# 获取同组传送门的几何中心位置
 	# Calculate the geometric center position of portals in the same group
