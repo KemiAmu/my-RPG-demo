@@ -13,8 +13,8 @@ extends Node
 
 # Global variable
 var save_manager := SaveManager.new()
-var player_manager := PlayerManager.new()
 var signal_bus := SignalBus.new()
+@onready var player_manager := PlayerManager.new()
 
 # Signal
 signal switch_scene(next_scene: PackedScene)

@@ -32,8 +32,6 @@ extends Area2D
 # 当玩家进入传送门
 # When the player enters the portal
 func _on_player_entered(body: Node2D) -> void:
-	print(" Info: Player entered portal %s (group: %s)" % [name, portal_group])
-	
 	# 获取玩家相对于传送门的方向（弧度）
 	# Get player's direction relative to portal (in radians)
 	var direction_angle := (body.global_position - global_position).angle()
@@ -50,6 +48,8 @@ func _on_player_entered(body: Node2D) -> void:
 	for portal in portals:
 		if portal.portal_group != portal_group:
 			portals.erase(portal)
+
+	print(" Info: Found %d portals in group '%s'" % [portals.size(), portal_group])
 
 	# 获取同组传送门的几何中心位置
 	# Calculate the geometric center position of portals in the same group
@@ -74,7 +74,7 @@ func _on_player_entered(body: Node2D) -> void:
 	if best_match != null:
 		# 计算玩家在目标传送门的位置偏移
 		# Calculate player's position offset relative to target portal
-		var exit_offset := Vector2(push_radius, 0).rotated(direction_angle + PI)
+		var exit_offset := Vector2(best_match.push_radius, 0).rotated(direction_angle + PI)
 
 		# 设置玩家位置到目标传送门并应用偏移
 		# Set player position to target portal and apply offset

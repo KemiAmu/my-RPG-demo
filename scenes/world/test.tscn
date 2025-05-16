@@ -3,7 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://cihf6dxqga20e" path="res://scenes/entity/slime.tscn" id="1_yokrj"]
 [ext_resource type="PackedScene" uid="uid://drorsm32hevne" path="res://scenes/entity/player.tscn" id="2_ujbsv"]
 [ext_resource type="PackedScene" uid="uid://qlfty4s6w0gx" path="res://scenes/prefab/portal.tscn" id="3_37g75"]
-[ext_resource type="PackedScene" uid="uid://cw0h53qgo146c" path="res://scenes/ui/welcome.tscn" id="4_xrc3a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_37g75"]
+radius = 54.0093
 
 [node name="Test" type="Node"]
 
@@ -17,9 +19,16 @@ position = Vector2(468, 253)
 
 [node name="Portal" parent="EntitySpawn" instance=ExtResource("3_37g75")]
 position = Vector2(591, 184)
-next_scene = ExtResource("4_xrc3a")
 portal_group = "test"
+push_radius = 30.0
 
 [node name="Portal2" parent="EntitySpawn" instance=ExtResource("3_37g75")]
 position = Vector2(242, 153)
 portal_group = "test"
+push_radius = 80.0
+
+[node name="CollisionShape2D" parent="EntitySpawn/Portal2" index="0"]
+shape = SubResource("CircleShape2D_37g75")
+
+[editable path="EntitySpawn/Portal"]
+[editable path="EntitySpawn/Portal2"]

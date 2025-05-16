@@ -39,14 +39,11 @@ signal teleport_player(anchor: Node, offset: Vector2)
 
 # 生命周期回调
 # Lifecycle callbacks
-func _ready():
+func _init():
 	Game.save_manager.register("player", load_player, save_player)
 	player_ready.connect(_player_ready)
 	player_unready.connect(_player_unready)
 	teleport_player.connect(_teleport_player)
-
-func _exit_tree():
-	Game.save_manager.unregister("player")
 
 func _player_ready(node: PlayerEntity) -> void:
 	_player = node
@@ -79,6 +76,7 @@ func _teleport_player(anchor: Node, offset: Vector2) -> void:
 	if not _player: _player = _spawn_player()
 	_intermediate_data["position"] = anchor.position + offset
 	_apply_player_data(_intermediate_data)
+	print("Debug: Player teleported to position: %s" % str(_intermediate_data["position"]))
 
 # 生成玩家实体实例并添加到场景中
 # Spawn player entity instance and add to scene
