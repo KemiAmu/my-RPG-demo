@@ -14,7 +14,7 @@ class_name PlayerManager
 
 # Player entity node
 # TODO HACK WONTFIX: 弱连接，可能无效
-var _player: PlayerEntity
+var player: PlayerEntity
 
 # Intermediate layer data maintained by player manager
 var _intermediate_data := { "position": Vector2.ZERO }
@@ -61,46 +61,44 @@ func portal_entered(node: Node, scene: PackedScene, group: String, normal: float
 			var exit_offset := Vector2(best_match.push_radius, 0).rotated(snapped_angle)
 
 			# Set player position to target portal and apply offset
-			_teleport_player(best_match.position + exit_offset)
+			teleport_player(best_match.position + exit_offset)
 	)
 
 # Teleport player to specified position and update intermediate data
-func _teleport_player(pos: Vector2) -> void:
-	if not _player: _player = _spawn_player()
+func teleport_player(pos: Vector2) -> void:
+	if not player: player = spawn_player()
 	_intermediate_data["position"] = pos
-	_apply_player_data(_intermediate_data)
+	apply_player_data(_intermediate_data)
 	print("Debug: Player teleported to position: %s" % str(_intermediate_data["position"]))
 
 # Lifecycle callbacks
 func _init():
 	Game.save_manager.register("player", load_player, save_player)
-	player_ready.connect(_player_ready)
-	player_unready.connect(_player_unready)
-
-func _player_ready(node: PlayerEntity) -> void:
-	_player = node
-
-func _player_unready(node: PlayerEntity) -> void:
-	if _player == node: _player = null
+	player_ready.connect(func(node: PlayerEntity):
+		player = node
+	)
+	player_unready.connect(func(node: PlayerEntity):
+		if player == node: player = null
+	)
 
 # Player data serialization
 # TODO HACK WONTFIX: 我知道这很烂
 func load_player(data: Dictionary) -> void:
 	_intermediate_data = data
-	_apply_player_data(_intermediate_data)
+	apply_player_data(_intermediate_data)
 
 func save_player() -> Dictionary:
-	if _player: _intermediate_data["position"] = _player.position
+	if player: _intermediate_data["position"] = player.position
 	return _intermediate_data
 
 # Spawn player entity instance and add to scene
 # TODO HACK XXX: 假定节点树结构
-func _spawn_player() -> PlayerEntity:
+func spawn_player() -> PlayerEntity:
 	var new_player := player_scene.instantiate() as PlayerEntity
 	Game.get_tree().current_scene.get_node("EntityLayer").add_child(new_player)
 	return new_player
 
 # Apply player datas
-func _apply_player_data(data: Dictionary) -> void:
-	if not _player: return
-	_player.position = data.get("position", _player.position)
+func apply_player_data(data: Dictionary) -> void:
+	if not player: return
+	player.position = data.get("position", player.position)
