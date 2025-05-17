@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://drorsm32hevne" path="res://scenes/entity/player.tscn" id="2_ujbsv"]
 [ext_resource type="PackedScene" uid="uid://qlfty4s6w0gx" path="res://scenes/prefab/portal.tscn" id="3_37g75"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_37g75"]
-radius = 54.0093
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_37g75"]
+size = Vector2(222, 222)
 
 [node name="Test" type="Node"]
 
@@ -43,7 +43,7 @@ portal_group = "test"
 push_radius = 80.0
 
 [node name="CollisionShape2D" parent="EntitySpawn/Portal2" index="0"]
-shape = SubResource("CircleShape2D_37g75")
+shape = SubResource("RectangleShape2D_37g75")
 
 [editable path="EntitySpawn/Portal"]
 [editable path="EntitySpawn/Portal3"]
