@@ -23,9 +23,7 @@ Game="*res://system/game.gd"
 [dialogic]
 
 directories/dch_directory={}
-directories/dtl_directory={
-"welcome": "res://dialogues/timeline/welcome.dtl"
-}
+directories/dtl_directory={}
 layout/style_list=[]
 layout/default_style=""
 glossary/default_case_sensitive=true
