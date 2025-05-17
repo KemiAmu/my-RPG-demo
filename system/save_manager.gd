@@ -47,8 +47,7 @@ func unregister(key: String) -> void:
 
 # Save all registered data in data_box to file
 func save() -> void:
-	for key in save_funcs:
-		data_box[key] = save_funcs[key].call()
+	for f in save_funcs.values(): f.call()
 
 	var file := FileAccess.open(save_path, FileAccess.WRITE)
 	if file:
