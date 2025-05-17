@@ -35,6 +35,16 @@ func _on_player_entered(body: Node2D) -> void:
 	# Get player's direction relative to portal (in radians)
 	var direction_angle := (body.global_position - global_position).angle()
 
+	return Game.player_manager.portal_entered(
+		null if next_scene else self,
+		next_scene,
+		portal_group,
+		direction_angle
+	)
+
+
+
+
 	# 切换到下一个场景
 	# Change to the next scene
 	if next_scene:

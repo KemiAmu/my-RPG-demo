@@ -17,17 +17,16 @@ var signal_bus := SignalBus.new()
 
 @onready var player_manager := PlayerManager.new()
 
-# Signal
-signal switch_scene(next_scene: PackedScene)
+# Switch scene
+func switch_scene(next_scene: PackedScene, callback := func(): pass) -> void:
+	if next_scene:
+		get_tree().call_deferred("change_scene_to_packed", next_scene)
+		await get_tree().process_frame
+		await get_tree().current_scene.ready
+	callback.call_deferred()
 
 # 进入节点树
 func _ready() -> void:
-	# 切换场景
-	# Switch scene
-	switch_scene.connect(func(new_scene: PackedScene) -> void:
-		get_tree().call_deferred("change_scene_to_packed", new_scene)
-	)
-	
 	# 转发 Dialogic 信号到 SignalBus
 	Dialogic.signal_event.connect(func(what: String) -> void:
 		signal_bus.emit_signal(what)
@@ -36,7 +35,7 @@ func _ready() -> void:
 	# 开始游戏
 	signal_bus.start_game.connect(func() -> void:
 		print(" Info: signal_bus.start_game")
-		switch_scene.emit(preload("res://scenes/world/test.tscn"))
+		switch_scene(preload("res://scenes/world/test.tscn"))
 	)
 	# 退出游戏
 	signal_bus.exit_game.connect(func() -> void:
