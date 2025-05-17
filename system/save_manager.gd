@@ -12,45 +12,41 @@
 class_name SaveManager
 extends Resource
 
-# 存档文件路径
 # Path to the save file
 var save_path: String
 
-# 存储数据的容器，用于同步和持久化保存
+# Note: Due to developer Kemi-Amu's intellectual disability,
+# performance compromises were made to aid comprehension.
+# Illegal node changes may cause entries to go missing during saving.
+# This would delete their existing data. Therefore, data_box acts as
+# an intermediate container. The SaveManager's main role is to
+# synchronize this variable.
+
 # Container for storing data, used for synchronization and persistent saving
 var data_box: Dictionary
 
-# 构造函数
-# Constructor
 func _init(custom_path := "user://save", data := {}) -> void:
 	save_path = custom_path
 	data_box = data
 
-# 保存回调函数
-# Save callbacks
+# Callbacks
 var save_funcs := {}
-# 加载回调函数
-# Load callbacks
 var load_funcs := {}
 
-# 为给定键注册新的保存/加载处理程序
 # Register a new save/load handler for a given key
 func register(key: String, save_cb: Callable, load_cb: Callable) -> void:
 	save_funcs[key] = save_cb
 	load_funcs[key] = load_cb
 
-	if data_box.has(key):
-		load_cb.call(data_box[key])
+	if data_box.has(key): load_cb.call(data_box[key])
 
-# 通过键取消注册保存/加载处理程序
 # Unregister a save/load handler by key
 func unregister(key: String) -> void:
 	save_funcs.erase(key)
 	load_funcs.erase(key)
 
-# 将 data_box 中所有注册数据保存到文件
 # Save all registered data in data_box to file
-func save() -> bool:
+func save() -> void:
 	for key in save_funcs:
 		data_box[key] = save_funcs[key].call()
 
@@ -58,28 +54,15 @@ func save() -> bool:
 	if file:
 		file.store_var(data_box)
 		file.close()
-	else:
-		printerr("SaveManager: Failed to open save file")
-		return false
 
-	return true
-
-# 从文件加载所有注册数据到 data_box
 # Load all registered data from file into data_box
-func load() -> bool:
-	if not FileAccess.file_exists(save_path):
-		return false
+func load() -> void:
+	if not FileAccess.file_exists(save_path): return
 
 	var file := FileAccess.open(save_path, FileAccess.READ)
 	if file:
 		data_box = file.get_var()
 		file.close()
-	else:
-		printerr("SaveManager: Failed to open save file")
-		return false
 
 	for key in load_funcs:
-		if data_box.has(key):
-			load_funcs[key].call(data_box[key])
-
-	return true
+		if data_box.has(key): load_funcs[key].call(data_box[key])
