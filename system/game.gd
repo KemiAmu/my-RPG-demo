@@ -28,8 +28,6 @@ func _ready() -> void:
 		get_tree().call_deferred("change_scene_to_packed", new_scene)
 	)
 	
-	
-	
 	# 转发 Dialogic 信号到 SignalBus
 	Dialogic.signal_event.connect(func(what: String) -> void:
 		signal_bus.emit_signal(what)

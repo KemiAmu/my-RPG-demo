@@ -40,6 +40,11 @@ func _on_player_entered(body: Node2D) -> void:
 	if next_scene:
 		# Game.signal_bus.scene_change_requested.emit(next_scene)
 		Game.switch_scene.emit(next_scene)
+		
+		# 等待场景切换完成
+		# await get_tree().create_timer(0.01).timeout  # 允许1帧时间完成场景切换
+		await Game.get_tree().process_frame  # 确保新场景节点树就绪
+		await Game.get_tree().process_frame
 
 	# 定位新场景中属于同一组的所有传送门节点
 	# Locate all portal nodes in the new scene that belong to the same group
