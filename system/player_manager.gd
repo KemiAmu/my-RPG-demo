@@ -86,13 +86,12 @@ func _player_unready(node: PlayerEntity) -> void:
 # Player data serialization
 # TODO HACK WONTFIX: 我知道这很烂
 func load_player(data: Dictionary) -> void:
-	_intermediate_data = data.duplicate()
+	_intermediate_data = data
 	_apply_player_data(_intermediate_data)
 
 func save_player() -> Dictionary:
-	if _player:
-		_intermediate_data["position"] = _player.position
-	return _intermediate_data.duplicate()
+	if _player: _intermediate_data["position"] = _player.position
+	return _intermediate_data
 
 # Spawn player entity instance and add to scene
 # TODO HACK XXX: 假定节点树结构
