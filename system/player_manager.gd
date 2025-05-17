@@ -63,8 +63,14 @@ func portal_entered(node: Node, scene: PackedScene, group: String, normal: float
 				best_match = portal
 		
 		if best_match:
-			
-			
+			# 计算玩家在目标传送门的位置偏移
+			# Calculate player's position offset relative to target portal
+			var snapped_angle := roundf((normal + PI) / (PI / 2)) * (PI / 2)
+			var exit_offset := Vector2(best_match.push_radius * sqrt(2), 0).rotated(snapped_angle)
+	
+			# 设置玩家位置到目标传送门并应用偏移
+			# Set player position to target portal and apply offset
+			_teleport_player(best_match, exit_offset)
 	)
 
 func _teleport_player(anchor: Node, offset: Vector2) -> void:
