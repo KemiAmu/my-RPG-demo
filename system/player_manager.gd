@@ -11,45 +11,38 @@
 # Player manager class, responsible for dynamic player entity control
 # TODO: AI-generated code - pending review
 class_name PlayerManager
-extends Node
 
-# 玩家实体节点
 # Player entity node
 # TODO HACK WONTFIX: 弱连接，可能无效
 var _player: PlayerEntity
 
-# 玩家管理器维护的中间层数据
 # Intermediate layer data maintained by player manager
 var _intermediate_data := { "position": Vector2.ZERO }
 
-# 玩家实体场景资源
 # Player entity scene resource
 # TODO HACK WONTFIX: 迁移至 Intermediate data
 var player_scene := preload("res://scenes/entity/player.tscn")
 
-# 玩家实体生命周期信号
 # Player entity lifecycle signals
 # TODO HACK: 用于兼容和阻断异常
 signal player_ready(node: PlayerEntity)
 signal player_unready(node: PlayerEntity)
 
+# Handle portal entry: switch scenes and position player accordingly
 func portal_entered(node: Node, scene: PackedScene, group: String, normal: float) -> void:
 	Game.switch_scene(scene, func():
-		# 定位新场景中属于同一组的所有传送门节点
 		# Locate all portal nodes in the new scene that belong to the same group
-		var target_portals := get_tree().get_nodes_in_group("portal")
+		var target_portals := Game.get_tree().get_nodes_in_group("portal")
 		target_portals.erase(node)
 		for p in target_portals:
 			if p.portal_group != group: target_portals.erase(p)
 		print(" Info: Found %d target portals in group '%s'" % [target_portals.size(), group])
 
-		# 获取同组传送门的几何中心位置
 		# Calculate the geometric center position of portals in the same group
 		var group_center := Vector2.ZERO
 		for p in target_portals: group_center += p.global_position
-		if group_center == Vector2.ZERO: group_center /= target_portals.size()
-		
-		# 找到与进入角度最匹配的传送门
+		if group_center != Vector2.ZERO: group_center /= target_portals.size()
+
 		# Find the portal that best matches the entry angle
 		var best_match: Portal = null
 		var smallest_angle_diff := INF
@@ -63,23 +56,21 @@ func portal_entered(node: Node, scene: PackedScene, group: String, normal: float
 				best_match = portal
 		
 		if best_match:
-			# 计算玩家在目标传送门的位置偏移
 			# Calculate player's position offset relative to target portal
 			var snapped_angle := roundf((normal + PI) / (PI / 2)) * (PI / 2)
-			var exit_offset := Vector2(best_match.push_radius * sqrt(2), 0).rotated(snapped_angle)
-	
-			# 设置玩家位置到目标传送门并应用偏移
+			var exit_offset := Vector2(best_match.push_radius, 0).rotated(snapped_angle)
+
 			# Set player position to target portal and apply offset
-			_teleport_player(best_match, exit_offset)
+			_teleport_player(best_match.position + exit_offset)
 	)
 
-func _teleport_player(anchor: Node, offset: Vector2) -> void:
+# Teleport player to specified position and update intermediate data
+func _teleport_player(pos: Vector2) -> void:
 	if not _player: _player = _spawn_player()
-	_intermediate_data["position"] = anchor.position + offset
+	_intermediate_data["position"] = pos
 	_apply_player_data(_intermediate_data)
 	print("Debug: Player teleported to position: %s" % str(_intermediate_data["position"]))
 
-# 生命周期回调
 # Lifecycle callbacks
 func _init():
 	Game.save_manager.register("player", load_player, save_player)
@@ -92,7 +83,6 @@ func _player_ready(node: PlayerEntity) -> void:
 func _player_unready(node: PlayerEntity) -> void:
 	if _player == node: _player = null
 
-# 玩家数据序列化
 # Player data serialization
 # TODO HACK WONTFIX: 我知道这很烂
 func load_player(data: Dictionary) -> void:
@@ -104,15 +94,13 @@ func save_player() -> Dictionary:
 		_intermediate_data["position"] = _player.position
 	return _intermediate_data.duplicate()
 
-# 生成玩家实体实例并添加到场景中
 # Spawn player entity instance and add to scene
 # TODO HACK XXX: 假定节点树结构
 func _spawn_player() -> PlayerEntity:
 	var new_player := player_scene.instantiate() as PlayerEntity
-	get_tree().current_scene.get_node("EntityLayer").add_child(new_player)
+	Game.get_tree().current_scene.get_node("EntityLayer").add_child(new_player)
 	return new_player
 
-# 应用玩家数据
 # Apply player datas
 func _apply_player_data(data: Dictionary) -> void:
 	if not _player: return
