@@ -20,29 +20,20 @@ position = Vector2(468, 200)
 
 [node name="Portal" parent="EntitySpawn" instance=ExtResource("3_37g75")]
 position = Vector2(591, 200)
-portal_group = "test"
-push_radius = 30.0
 
 [node name="Portal3" parent="EntitySpawn" instance=ExtResource("3_37g75")]
 position = Vector2(547, 171)
-portal_group = "test"
-push_radius = 30.0
 
 [node name="Portal4" parent="EntitySpawn" instance=ExtResource("3_37g75")]
 position = Vector2(502, 197)
-portal_group = "test"
-push_radius = 30.0
 
 [node name="Portal5" parent="EntitySpawn" instance=ExtResource("3_37g75")]
 position = Vector2(545, 233)
-portal_group = "test"
-push_radius = 30.0
 
 [node name="Portal2" parent="EntitySpawn" instance=ExtResource("3_37g75")]
 position = Vector2(242, 200)
 next_scene = ExtResource("4_xrc3a")
-portal_group = "test"
-push_radius = 80.0
+push_radius = 140.0
 
 [node name="CollisionShape2D" parent="EntitySpawn/Portal2" index="0"]
 shape = SubResource("RectangleShape2D_37g75")
