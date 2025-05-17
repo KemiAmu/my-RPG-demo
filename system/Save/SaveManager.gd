@@ -3,7 +3,7 @@ class_name SaveManager2
 var Processers : Dictionary[String, SaveDataProcesser]
 var NowUsing : String
 
-func Load(address : String) -> bool:
+func Load(address : String = NowUsing) -> bool:
 	var file := FileAccess.open(address, FileAccess.READ)
 	if file:
 		var data : Dictionary = file.get_var()
@@ -12,6 +12,7 @@ func Load(address : String) -> bool:
 			var proc := Processers[i]
 			if proc:
 				proc.Load(data[i])
+		NowUsing = address
 		return true
 	else:
 		return false
@@ -24,5 +25,6 @@ func Save(address : String = NowUsing) -> bool:
 	if file:
 		file.store_var(data)
 		file.close()
+		NowUsing = address
 		return true
 	return false
