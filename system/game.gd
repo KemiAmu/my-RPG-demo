@@ -18,11 +18,17 @@ var signal_bus := SignalBus.new()
 @onready var player_manager := PlayerManager.new()
 
 # Switch scene
-func switch_scene(next_scene: PackedScene, callback := func(): pass) -> void:
+signal scene_changed
+
+func switch_scene(next_scene: PackedScene, callback := (func(): pass)) -> void:
 	if next_scene:
-		get_tree().call_deferred("change_scene_to_packed", next_scene)
-		await get_tree().process_frame
-		await get_tree().current_scene.ready
+		(func():
+			get_tree().change_scene_to_packed(next_scene)
+			while not get_tree().current_scene: await get_tree().process_frame
+			await get_tree().current_scene.ready
+			scene_changed.emit()
+		).call_deferred()
+		await scene_changed
 	callback.call_deferred()
 
 # 进入节点树
